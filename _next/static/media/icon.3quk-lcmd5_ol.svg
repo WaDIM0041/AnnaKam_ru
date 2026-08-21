@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="akGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff88"/>
+      <stop offset="50%" stop-color="#00ccff"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+  </defs>
+  <!-- Diamond (rotated square) -->
+  <rect x="12" y="12" width="40" height="40" rx="4"
+        transform="rotate(45 32 32)"
+        fill="#0a0a0a"
+        stroke="url(#akGrad)" stroke-width="2.5"/>
+  <!-- Letters AK -->
+  <text x="32" y="41"
+        text-anchor="middle"
+        font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
+        font-weight="700"
+        font-size="18"
+        fill="url(#akGrad)"
+        letter-spacing="1">АК</text>
+</svg>

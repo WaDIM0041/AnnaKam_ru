@@ -1,0 +1,25 @@
+# --- Sensitive: PHP backend, DB, admin panel ---
+api/
+data/
+admin/
+INSTALL/
+*.php
+
+# --- Internal backups/tools ---
+_local_old_backup/
+_gen_og.py
+
+# --- Apache server config (not needed on GitHub Pages) ---
+.htaccess
+
+# --- Next/RSC internal build dumps (not needed for static page) ---
+__next.*.txt
+
+# --- OS/editor ---
+.DS_Store
+Thumbs.db
+*.log
+
+# --- Keep only static site content for GitHub Pages: ---
+# index.html, 404.html, robots.txt, sitemap.xml, manifest.json, favicon.*, logo.*, icon.*
+# _next/, portfolio/, privacy/, terms-of-use/, _not-found/, 404/, uploads/, og-image.png

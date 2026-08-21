@@ -1,0 +1,11 @@
+{
+  "name": "Анна Камчатка — Веб-дизайнер и креативный агент",
+  "short_name": "AnnaKam",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#00ccff"
+}

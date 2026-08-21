@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /INSTALL/
+Disallow: /_next/static/
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://annakam.ru/sitemap.xml
+Host: https://annakam.ru
