@@ -23,3 +23,5 @@ Thumbs.db
 # --- Keep only static site content for GitHub Pages: ---
 # index.html, 404.html, robots.txt, sitemap.xml, manifest.json, favicon.*, logo.*, icon.*
 # _next/, portfolio/, privacy/, terms-of-use/, _not-found/, 404/, uploads/, og-image.png
+# --- Local snapshots/backups ---
+_new_backup_2208/
