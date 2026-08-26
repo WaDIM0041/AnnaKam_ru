@@ -98,7 +98,7 @@
             }
             if(el.children.length===0 && el.textContent.trim()!==''){
               var orig=parseFloat(el.dataset.annakamOrig);
-              if(!isNaN(orig)){ el.style.fontSize=(orig+2.6667)+'px'; }
+              if(!isNaN(orig)){ var inc=(orig<=13)?5:2.6667; el.style.fontSize=(orig+inc)+'px'; }
             }
           }
         }
