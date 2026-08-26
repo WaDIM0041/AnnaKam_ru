@@ -13,7 +13,7 @@
           mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
-  animation: annakam-rotate 4s linear infinite;
+  animation: annakam-rotate 4s infinite linear;
   pointer-events: none;
 }
 
@@ -87,11 +87,17 @@
           }
         }
         var card=pick(h) || h.parentElement;
-        if(card) card.classList.add('annakam-wave');
-        var ps=[].slice.call((h.parentElement||h).querySelectorAll('p'));
-        for(var j=0;j<ps.length;j++){
-          if(ps[j].textContent && ps[j].textContent.indexOf('Предлагаем размещение')>-1){
-            ps[j].style.fontSize='14px';
+        if(card){
+          card.classList.add('annakam-wave');
+          var all=card.getElementsByTagName('*');
+          for(var m=0;m<all.length;m++){
+            var el=all[m];
+            if(h.contains(el)) continue;
+            if(el.dataset && el.dataset.annakamSized) continue;
+            if(el.children.length===0 && el.textContent.trim()!==''){
+              var cur=parseFloat(getComputedStyle(el).fontSize);
+              if(!isNaN(cur)){ el.style.fontSize=(cur+2)+'px'; el.dataset.annakamSized='1'; }
+            }
           }
         }
         return true;
