@@ -63,7 +63,6 @@
 </style>
 <script>
 (function(){
-  var done=false;
   function pick(el){
     while(el && el!==document.body){
       var cl=(el.className||'');
@@ -78,16 +77,23 @@
       var h=hs[k];
       if(h.textContent && h.textContent.indexOf('Хотите получить новых клиентов?')>-1){
         var card=pick(h) || h.parentElement;
-        if(card) card.classList.add('annakam-wave');
-        h.setAttribute('data-text', h.textContent);
-        h.classList.add('annakam-glitch');
-        done=true; return true;
+        if(card && !card.classList.contains('annakam-wave')) card.classList.add('annakam-wave');
+        if(!h.classList.contains('annakam-glitch')){
+          h.setAttribute('data-text', h.textContent);
+          h.classList.add('annakam-glitch');
+        }
+        return true;
       }
     }
     return false;
   }
-  var iv=setInterval(function(){if(apply())clearInterval(iv);},400);
-  setTimeout(function(){clearInterval(iv);},15000);
-  if(window.MutationObserver){new MutationObserver(function(){apply();}).observe(document.body,{subtree:true,childList:true,attributes:true});}
+  if(apply()){}
+  else{
+    var iv=setInterval(function(){ if(apply()) clearInterval(iv); },400);
+    setTimeout(function(){clearInterval(iv);},15000);
+  }
+  if(window.MutationObserver){
+    new MutationObserver(function(){ apply(); }).observe(document.body,{subtree:true,childList:true});
+  }
 })();
 </script></body></html>
