@@ -13,7 +13,7 @@
           mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
-  animation: annakam-rotate 4s linear infinite;
+  animation: annakam-rotate 4s infinite linear;
   pointer-events: none;
 }
 
@@ -71,7 +71,35 @@
     }
     return null;
   }
+  function sectionRoot(el){
+    var n=el;
+    while(n && n!==document.body){
+      if(n.tagName==='SECTION') return n;
+      n=n.parentElement;
+    }
+    return el.parentElement || el;
+  }
+  function bump(root, skipEl, skipTag){
+    if(!root) return;
+    var all=root.getElementsByTagName('*');
+    for(var m=0;m<all.length;m++){
+      var el=all[m];
+      if(skipEl && (el===skipEl || skipEl.contains(el))) continue;
+      if(skipTag && el.closest && el.closest(skipTag)) continue;
+      if(el.dataset && el.dataset.annakamOrig===undefined){
+        el.dataset.annakamOrig=getComputedStyle(el).fontSize;
+      }
+      if(el.children.length===0 && el.textContent.trim()!==''){
+        var orig=parseFloat(el.dataset.annakamOrig);
+        if(!isNaN(orig)){
+          var inc=(orig<=13)?5:2.6667;
+          el.style.fontSize=(orig+inc)+'px';
+        }
+      }
+    }
+  }
   function apply(){
+    var matched=false;
     var hs=[].slice.call(document.querySelectorAll('h3'));
     for(var k=0;k<hs.length;k++){
       var h=hs[k];
@@ -87,25 +115,20 @@
           }
         }
         var card=pick(h) || h.parentElement;
-        if(card){
-          card.classList.add('annakam-wave');
-          var all=card.getElementsByTagName('*');
-          for(var m=0;m<all.length;m++){
-            var el=all[m];
-            if(h.contains(el)) continue;
-            if(el.dataset && el.dataset.annakamOrig===undefined){
-              el.dataset.annakamOrig=getComputedStyle(el).fontSize;
-            }
-            if(el.children.length===0 && el.textContent.trim()!==''){
-              var orig=parseFloat(el.dataset.annakamOrig);
-              if(!isNaN(orig)){ el.style.fontSize=(orig+2.6667)+'px'; }
-            }
-          }
-        }
-        return true;
+        if(card){ card.classList.add('annakam-wave'); bump(card, h, null); }
+        matched=true;
       }
     }
-    return false;
+    var ps=[].slice.call(document.querySelectorAll('p'));
+    for(var e=0;e<ps.length;e++){
+      var p=ps[e];
+      if(p.textContent && p.textContent.indexOf('[ Партнёрство ]')>-1){
+        bump(sectionRoot(p), null, 'h2');
+        matched=true;
+        break;
+      }
+    }
+    return matched;
   }
   if(apply()){}
   else{
