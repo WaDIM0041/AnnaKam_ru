@@ -75,19 +75,26 @@
     var hs=[].slice.call(document.querySelectorAll('h3'));
     for(var k=0;k<hs.length;k++){
       var h=hs[k];
-      if(h.querySelector && h.querySelector('.annakam-glitch')) return true;
       if(h.textContent && h.textContent.indexOf('Хотите получить новых клиентов?')>-1){
-        var full=h.textContent;
-        var idx=full.indexOf(TARGET);
-        if(idx>-1){
-          var before=full.substring(0,idx);
-          var after=full.substring(idx+TARGET.length);
-          h.innerHTML=before+'<span class="annakam-glitch" data-text="'+TARGET+'">'+TARGET+'</span>'+after;
-          h.classList.add('annakam-title');
-          var card=pick(h) || h.parentElement;
-          if(card) card.classList.add('annakam-wave');
-          return true;
+        if(!(h.querySelector && h.querySelector('.annakam-glitch'))){
+          var full=h.textContent;
+          var idx=full.indexOf(TARGET);
+          if(idx>-1){
+            var before=full.substring(0,idx);
+            var after=full.substring(idx+TARGET.length);
+            h.innerHTML=before+'<span class="annakam-glitch" data-text="'+TARGET+'">'+TARGET+'</span>'+after;
+            h.classList.add('annakam-title');
+          }
         }
+        var card=pick(h) || h.parentElement;
+        if(card) card.classList.add('annakam-wave');
+        var ps=[].slice.call((h.parentElement||h).querySelectorAll('p'));
+        for(var j=0;j<ps.length;j++){
+          if(ps[j].textContent && ps[j].textContent.indexOf('Предлагаем размещение')>-1){
+            ps[j].style.fontSize='14px';
+          }
+        }
+        return true;
       }
     }
     return false;
