@@ -17,52 +17,52 @@
   pointer-events: none;
 }
 
-.annakam-glitch {
-  position: relative !important;
-  font-size: 1.9rem !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.4px;
-  color: #fff;
-}
+.annakam-title { font-size: 1.9rem !important; font-weight: 800 !important; letter-spacing: 0.4px; color: #fff; }
+.annakam-glitch { position: relative; display: inline-block; }
 .annakam-glitch::before,
 .annakam-glitch::after {
   content: attr(data-text);
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   overflow: hidden;
+  opacity: 0;
   pointer-events: none;
 }
 .annakam-glitch::before {
   left: 2px;
   text-shadow: -2px 0 #ff2d95;
-  animation: annakam-glitch-1 2.2s infinite linear alternate-reverse;
+  animation: annakam-glitch-1 6s infinite linear;
 }
 .annakam-glitch::after {
   left: -2px;
   text-shadow: 2px 0 #00f0ff;
-  animation: annakam-glitch-2 1.7s infinite linear alternate-reverse;
+  animation: annakam-glitch-2 6s infinite linear;
 }
 @keyframes annakam-glitch-1 {
-  0%   { clip-path: inset(10% 0 82% 0); }
-  20%  { clip-path: inset(40% 0 40% 0); }
-  40%  { clip-path: inset(75% 0 5% 0); }
-  60%  { clip-path: inset(20% 0 60% 0); }
-  80%  { clip-path: inset(55% 0 30% 0); }
-  100% { clip-path: inset(5% 0 85% 0); }
+  0%, 72%   { opacity: 0; }
+  74% { opacity: 1; clip-path: inset(10% 0 82% 0); }
+  78% { opacity: 1; clip-path: inset(40% 0 40% 0); }
+  82% { opacity: 1; clip-path: inset(75% 0 5% 0); }
+  86% { opacity: 1; clip-path: inset(20% 0 60% 0); }
+  90% { opacity: 1; clip-path: inset(55% 0 30% 0); }
+  94% { opacity: 1; clip-path: inset(5% 0 85% 0); }
+  96%, 100% { opacity: 0; }
 }
 @keyframes annakam-glitch-2 {
-  0%   { clip-path: inset(70% 0 12% 0); }
-  20%  { clip-path: inset(15% 0 70% 0); }
-  40%  { clip-path: inset(50% 0 35% 0); }
-  60%  { clip-path: inset(30% 0 55% 0); }
-  80%  { clip-path: inset(80% 0 5% 0); }
-  100% { clip-path: inset(35% 0 48% 0); }
+  0%, 72%   { opacity: 0; }
+  74% { opacity: 1; clip-path: inset(70% 0 12% 0); }
+  78% { opacity: 1; clip-path: inset(15% 0 70% 0); }
+  82% { opacity: 1; clip-path: inset(50% 0 35% 0); }
+  86% { opacity: 1; clip-path: inset(30% 0 55% 0); }
+  90% { opacity: 1; clip-path: inset(80% 0 5% 0); }
+  94% { opacity: 1; clip-path: inset(35% 0 48% 0); }
+  96%, 100% { opacity: 0; }
 }
 </style>
 <script>
 (function(){
+  var TARGET = "получить новых клиентов";
   function pick(el){
     while(el && el!==document.body){
       var cl=(el.className||'');
@@ -75,14 +75,19 @@
     var hs=[].slice.call(document.querySelectorAll('h3'));
     for(var k=0;k<hs.length;k++){
       var h=hs[k];
+      if(h.querySelector && h.querySelector('.annakam-glitch')) return true;
       if(h.textContent && h.textContent.indexOf('Хотите получить новых клиентов?')>-1){
-        var card=pick(h) || h.parentElement;
-        if(card && !card.classList.contains('annakam-wave')) card.classList.add('annakam-wave');
-        if(!h.classList.contains('annakam-glitch')){
-          h.setAttribute('data-text', h.textContent);
-          h.classList.add('annakam-glitch');
+        var full=h.textContent;
+        var idx=full.indexOf(TARGET);
+        if(idx>-1){
+          var before=full.substring(0,idx);
+          var after=full.substring(idx+TARGET.length);
+          h.innerHTML=before+'<span class="annakam-glitch" data-text="'+TARGET+'">'+TARGET+'</span>'+after;
+          h.classList.add('annakam-title');
+          var card=pick(h) || h.parentElement;
+          if(card) card.classList.add('annakam-wave');
+          return true;
         }
-        return true;
       }
     }
     return false;
