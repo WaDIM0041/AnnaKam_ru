@@ -59,6 +59,52 @@
   94% { opacity: 1; clip-path: inset(35% 0 48% 0); }
   96%, 100% { opacity: 0; }
 }
+
+/* ===== Соцсети: новый блок (VK / Telegram / Instagram) ===== */
+.aksocial-sub { font-size:.72rem; letter-spacing:.35em; text-transform:uppercase; color:#e9d5ff; margin:0 0 20px; text-align:center; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+.aksocial-cards { display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:18px; }
+.aksocial-card { position:relative; flex:1 1 200px; max-width:260px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:0; padding:30px 20px 25px; border-radius:24px; text-decoration:none; color:#fff; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.3); transition:transform .3s, box-shadow .3s; }
+.aksocial-card:hover { transform:translateY(-10px) scale(1.02); box-shadow:0 15px 40px rgba(0,0,0,.5); }
+.aksocial-card.aks-vk { background:rgba(76,117,163,.22); border-color:rgba(76,117,163,.5); }
+.aksocial-card.aks-tg { background:rgba(38,165,228,.22); border-color:rgba(38,165,228,.5); }
+.aksocial-card.aks-ig { background:rgba(214,36,159,.20); border-color:rgba(214,36,159,.5); }
+.aksocial-glow { position:absolute; top:-2px; left:-2px; right:-2px; bottom:-2px; border-radius:22px; background:conic-gradient(from 0deg,#4C75A3,#26A5E4,#d6249f,#ff9ff3,#4C75A3); background-size:300% 300%; z-index:-1; opacity:0; transition:opacity .4s ease; animation:aksocial-rot 4s linear infinite; pointer-events:none; }
+.aksocial-card:hover .aksocial-glow { opacity:1; }
+@keyframes aksocial-rot { 0% { background-position:0% 50%; } 50% { background-position:100% 50%; } 100% { background-position:0% 50%; } }
+.aksocial-ic { flex:0 0 auto; width:64px; height:64px; margin:0 0 14px; border-radius:18px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.15); background:rgba(0,0,0,.25); }
+.aksocial-ic svg { width:30px; height:30px; display:block; }
+.aks-vk .aksocial-ic { color:#7fb2e5; }
+.aks-tg .aksocial-ic { color:#5ec4f2; }
+.aks-ig .aksocial-ic { color:#f060b8; }
+.aks-vk .aksocial-ic svg { animation:aksocial-swing 2.5s ease-in-out infinite; }
+.aks-tg .aksocial-ic svg { animation:aksocial-float 3s ease-in-out infinite; }
+.aks-ig .aksocial-ic svg { animation:aksocial-spin 8s linear infinite; }
+.aksocial-card:hover .aksocial-ic svg { animation-play-state:paused; }
+@keyframes aksocial-swing { 0% { transform:rotate(-6deg); } 50% { transform:rotate(6deg); } 100% { transform:rotate(-6deg); } }
+@keyframes aksocial-float { 0% { transform:translateY(0); } 50% { transform:translateY(-6px); } 100% { transform:translateY(0); } }
+@keyframes aksocial-spin { 0% { transform:rotate(0); } 100% { transform:rotate(360deg); } }
+.aksocial-tx { min-width:0; }
+.aksocial-name { font-size:20px; font-weight:700; margin:0 0 6px; }
+.aksocial-desc { font-size:14px; color:#f5f5f5; opacity:1; margin:0; text-shadow:0 1px 6px rgba(0,0,0,.6); }
+.aksocial-go { display:none; }
+@media (max-width:640px) {
+  .aksocial-card { flex:1 1 100%; max-width:320px; }
+  .aksocial-sub { font-size:.65rem; }
+}
+
+/* ===== Блок «Доверие через дизайн» (перед «О себе») ===== */
+.aktrust { position:relative; padding:5rem 1rem; text-align:center; overflow:hidden; }
+.aktrust-inner { max-width:56rem; margin:0 auto; }
+.aktrust-icon { display:flex; justify-content:center; margin-bottom:1.5rem; }
+.aktrust-icon svg { width:64px; height:64px; display:block; }
+.aktrust-ring1 { animation:aktrust-pulse 3s infinite alternate ease-in-out; transform-origin:center; transform-box:fill-box; }
+.aktrust-ring2 { animation:aktrust-pulse 3s infinite alternate-reverse ease-in-out; transform-origin:center; transform-box:fill-box; }
+@keyframes aktrust-pulse { 0% { transform:scale(.8) translateX(-4px); opacity:.6; } 100% { transform:scale(1) translateX(4px); opacity:1; } }
+.aktrust-title { font-size:1.875rem; line-height:2.25rem; font-weight:700; margin:0 0 1.25rem; color:#fff; }
+@media (min-width:768px) { .aktrust-title { font-size:3rem; line-height:1; } }
+.aktrust-title .grad { background:linear-gradient(135deg,#00ff88,#00ccff); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.aktrust-text { color:#d4d4d8; max-width:42rem; margin:0 auto; font-size:1rem; line-height:1.75; }
+@media (min-width:768px) { .aktrust-text { font-size:1.125rem; } }
 </style>
 <script>
 (function(){
@@ -152,215 +198,149 @@
     new MutationObserver(function(){ apply(); }).observe(document.body,{subtree:true,childList:true});
   }
 })();
-</script><style>
-/* ===== AnnaKam: социальные сети ===== */
-@property --ak-a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-@keyframes ak-spin { to { --ak-a: 360deg; } }
-@keyframes ak-float { 0%,100% { transform: translateY(-4px) rotate(-3deg) scale(1.06); } 50% { transform: translateY(-9px) rotate(-3deg) scale(1.06); } }
-@keyframes ak-scanmv { 0% { top: -30%; } 100% { top: 130%; } }
-@keyframes ak-blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
-
-#ak-social { position: relative; z-index: 2; width: 100%; padding: 76px 16px 92px; overflow: hidden;
-  background: radial-gradient(1000px 320px at 50% 0%, rgba(0,204,255,.07), transparent 62%); }
-#ak-social::before { content: ""; position: absolute; inset: 0; pointer-events-none; opacity: .5;
-  background: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px) 0 0/100% 40px,
-              linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px) 0 0/40px 100%;
-  -webkit-mask: radial-gradient(700px 340px at 50% 22%, #000, transparent 78%);
-          mask: radial-gradient(700px 340px at 50% 22%, #000, transparent 78%); }
-.ak-wrap { position: relative; width: 100%; max-width: 1500px; margin: 0 auto; }
-.ak-head { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; margin: 0 auto 44px; }
-.ak-label { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
-  letter-spacing: .28em; text-transform: uppercase; color: #00ccff; opacity: .9; }
-.ak-label::after { content: "_"; animation: ak-blink 1.1s steps(1) infinite; }
-.ak-title { margin: 0; font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: .3px; color: #fff; }
-.ak-title em { font-style: normal; background: linear-gradient(90deg, #00ff88, #00ccff, #c084fc);
-  -webkit-background-clip: text; background-clip: text; color: transparent; }
-.ak-sub { margin: 0; font-size: 14px; color: rgba(255,255,255,.45); }
-
-.ak-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; }
-
-.ak-card { position: relative; display: flex; border-radius: 20px; padding: 1.6px; overflow: hidden;
-  background: #0c0d10; text-decoration: none; transform-style: preserve-3d; will-change: transform;
-  opacity: 0; transform: translateY(30px) scale(.97);
-  transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1), box-shadow .35s; }
-.ak-card.ak-go { opacity: 1; transform: none; }
-.ak-card.ak-ready { transition: transform .18s ease-out, box-shadow .35s; }
-.ak-card:hover { box-shadow: 0 18px 50px -18px var(--glow); }
-.ak-card:active { transform: scale(.985); }
-.ak-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.6px;
-  background: conic-gradient(from var(--ak-a), var(--c1), var(--c2), var(--c1) 55%, rgba(255,255,255,.14), var(--c1));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: ak-spin 7s linear infinite; opacity: .5; transition: opacity .35s; pointer-events: none; }
-.ak-card:hover::before { opacity: 1; animation-duration: 2.8s; }
-
-.ak-in { position: relative; z-index: 3; flex: 1; display: flex; flex-direction: column; gap: 11px;
-  padding: 30px 28px 26px; border-radius: 18.5px; overflow: hidden;
-  background: linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,0) 40%), #0a0b0e; }
-.ak-in::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .55;
-  background: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px) 0 0/100% 34px,
-              linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px) 0 0/34px 100%;
-  -webkit-mask: radial-gradient(320px 200px at 100% 0%, #000, transparent 80%);
-          mask: radial-gradient(320px 200px at 100% 0%, #000, transparent 80%); }
-.ak-halo { position: absolute; inset: -35%; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .4s;
-  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 55%); }
-.ak-card:hover .ak-halo { opacity: .3; }
-.ak-scan { position: absolute; left: 0; right: 0; top: -30%; height: 26%; z-index: 2; pointer-events: none;
-  opacity: 0; filter: blur(1px); transform: skewY(-3deg);
-  background: linear-gradient(180deg, transparent, rgba(255,255,255,.09) 45%, var(--c2) 50%, rgba(255,255,255,.09) 55%, transparent); }
-.ak-card:hover .ak-scan { opacity: 1; animation: ak-scanmv 1.7s cubic-bezier(.45,0,.3,1) infinite; }
-
-.ak-ico { position: relative; z-index: 4; width: 60px; height: 60px; border-radius: 17px; display: grid; place-items: center;
-  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
-  transition: box-shadow .45s; }
-.ak-ico svg { width: 30px; height: 30px; filter: drop-shadow(0 0 9px var(--glow)); transition: transform .45s cubic-bezier(.22,1,.36,1); }
-.ak-card:hover .ak-ico { box-shadow: 0 12px 32px -8px var(--glow); }
-.ak-card:hover .ak-ico svg { animation: ak-float 2.4s ease-in-out infinite; }
-
-.ak-name { position: relative; z-index: 4; font-size: 20px; font-weight: 800; letter-spacing: .2px; color: #fff; }
-.ak-handle { position: relative; z-index: 4; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12.5px; letter-spacing: .04em; color: var(--c1); opacity: .92; }
-.ak-desc { position: relative; z-index: 4; max-width: 32ch; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.5); }
-.ak-cta { position: relative; z-index: 4; margin-top: auto; padding-top: 12px; display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13.5px; font-weight: 600; letter-spacing: .02em; color: #fff; transition: color .3s; }
-.ak-cta i { font-style: normal; display: inline-block; transition: transform .35s cubic-bezier(.22,1,.36,1); }
-.ak-card:hover .ak-cta { color: var(--c1); }
-.ak-card:hover .ak-cta i { transform: translateX(6px); }
-
-@media (max-width: 980px) {
-  #ak-social { padding: 60px 14px 72px; }
-  .ak-grid { grid-template-columns: 1fr; max-width: 540px; margin: 0 auto; gap: 14px; }
-  .ak-head { margin-bottom: 32px; }
-}
-@media (max-width: 560px) {
-  .ak-in { padding: 24px 20px 22px; }
-  .ak-ico { width: 52px; height: 52px; border-radius: 14px; }
-  .ak-ico svg { width: 26px; height: 26px; }
-  .ak-name { font-size: 18px; }
-  .ak-desc { font-size: 13.5px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  #ak-social *, #ak-social *::before, #ak-social *::after { animation: none !important; transition: none !important; }
-  .ak-card { opacity: 1 !important; transform: none !important; }
-}
-</style>
-
-<section id="ak-social" aria-label="Анна Камчатка в социальных сетях">
-  <div class="ak-wrap">
-    <div class="ak-head">
-      <span class="ak-label">[ Соцсети ]</span>
-      <h2 class="ak-title">Будем <em>на связи</em></h2>
-      <p class="ak-sub">Кейсы, процесс и бэкстейдж — в реальном времени</p>
-    </div>
-    <div class="ak-grid">
-
-      <a class="ak-card" id="ak-tg" href="https://t.me/anna_kamchatka" target="_blank" rel="noopener noreferrer" aria-label="Телеграм-канал @anna_kamchatka"
-         style="--c1:#2AABEE;--c2:#5ad1ff;--glow:rgba(42,171,238,.45)">
-        <span class="ak-in">
-          <span class="ak-halo"></span><span class="ak-scan"></span>
-          <span class="ak-ico">
-            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#2AABEE" d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
-          </span>
-          <span class="ak-name">Телеграм</span>
-          <span class="ak-handle">@anna_kamchatka</span>
-          <span class="ak-desc">Кейсы, разборы и мысли о дизайне — раньше, чем где-либо</span>
-          <span class="ak-cta">Подписаться <i>→</i></span>
-        </span>
-      </a>
-
-      <a class="ak-card" id="ak-ig" href="https://instagram.com/anna_kamchatka" target="_blank" rel="noopener noreferrer" aria-label="Instagram @anna_kamchatka"
-         style="--c1:#DD2A7B;--c2:#F58529;--glow:rgba(221,42,123,.42)">
-        <span class="ak-in">
-          <span class="ak-halo"></span><span class="ak-scan"></span>
-          <span class="ak-ico">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="ak-ig-g" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F58529"/><stop offset=".5" stop-color="#DD2A7B"/><stop offset="1" stop-color="#8134AF"/></linearGradient></defs><path fill="url(#ak-ig-g)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </span>
-          <span class="ak-name">Инстаграм</span>
-          <span class="ak-handle">@anna_kamchatka</span>
-          <span class="ak-desc">Бэкстейдж проектов, мудборды и жизнь студии изнутри</span>
-          <span class="ak-cta">Смотреть <i>→</i></span>
-        </span>
-      </a>
-
-      <a class="ak-card" id="ak-vk" href="https://vk.ru/anna_kamchatka" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте anna_kamchatka"
-         style="--c1:#0077FF;--c2:#00c2ff;--glow:rgba(0,119,255,.45)">
-        <span class="ak-in">
-          <span class="ak-halo"></span><span class="ak-scan"></span>
-          <span class="ak-ico">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#0077FF" d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.714-2.949 2.059-1.604 1.488 1.488 1.796 2.519 3.603 2.519h3.2c.808 0 1.126-.26 1.126-.668 0-.863-1.421-2.386-2.625-3.504-1.686-1.565-1.765-1.602-.313-3.486 1.801-2.339 4.157-5.336 2.073-5.336h-3.981c-.772 0-.828.435-1.103 1.08-.995 2.347-2.886 5.387-3.604 4.922-.751-.485-.407-2.406-.35-5.261.015-.754.011-1.271-1.141-1.539-.629-.145-1.241-.205-1.809-.205-2.273 0-3.841.953-2.998 1.119 1.572.305 1.42 3.692 1.056 5.16-.638 2.556-3.062-2.024-4.062-4.305-.244-.561-.317-.974-1.175-.974H.833c-.492 0-.787.16-.787.516 0 .602 2.96 6.72 5.786 9.77 2.756 2.975 5.48 2.708 7.33 2.708z"/></svg>
-          </span>
-          <span class="ak-name">ВКонтакте</span>
-          <span class="ak-handle">vk.ru/anna_kamchatka</span>
-          <span class="ak-desc">Анонсы, статьи и живое общение с аудиторией</span>
-          <span class="ak-cta">Вступить <i>→</i></span>
-        </span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
+</script>
 <script>
-(function () {
-  "use strict";
-  var root = document.getElementById("ak-social");
-  if (!root) return;
-  var cards = [].slice.call(root.querySelectorAll(".ak-card"));
-  if (!cards.length) return;
-  var fine = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* --- появление при скролле (каскадом) --- */
-  function reveal(c, i) {
-    setTimeout(function () {
-      c.classList.add("ak-go");
-      setTimeout(function () { c.classList.add("ak-ready"); c.style.transitionDelay = "0ms"; }, 1150);
-    }, reduce ? 0 : i * 120);
+/* Замена блока иконок соцсетей (#contact) на новые анимированные карточки.
+   Ссылки VK/Instagram читаются из живых данных сайта, Telegram задан явно. */
+(function(){
+  var VK_FALLBACK = "https://vk.ru/anna_kamchatka";
+  var IG_FALLBACK = "https://instagram.com/anna_kamchatka_0041";
+  var TG_URL = "https://t.me/anna_kamchatka";
+  var SVG_VK = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.587-1.496c.598-.188 1.368 1.259 2.183 1.815.616.42 1.084.328 1.084.328l2.175-.03s1.14-.07.599-.964c-.044-.073-.314-.661-1.618-1.869-1.366-1.264-1.183-1.06.462-3.246.999-1.33 1.398-2.142 1.273-2.489-.119-.332-.857-.244-.857-.244l-2.451.015s-.182-.025-.317.056c-.131.079-.216.263-.216.263s-.388 1.032-.905 1.91c-1.09 1.852-1.525 1.949-1.702 1.834-.413-.267-.31-1.072-.31-1.643 0-1.788.271-2.533-.529-2.727-.265-.064-.46-.106-1.138-.113-.869-.009-1.604.003-2.02.207-.277.136-.491.438-.361.455.161.021.526.098.72.361.25.34.241 1.102.241 1.102s.143 2.105-.335 2.366c-.328.179-.778-.186-1.742-1.868-.494-.857-.867-1.805-.867-1.805s-.072-.177-.2-.272c-.155-.115-.373-.152-.373-.152l-2.328.015s-.35.01-.479.162c-.114.135-.009.413-.009.413s1.815 4.25 3.869 6.39c1.882 1.961 4.023 1.832 4.023 1.832h.969z"/></svg>';
+  var SVG_TG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>';
+  var SVG_IG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>';
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+  function collect(){
+    var vk = VK_FALLBACK, ig = IG_FALLBACK;
+    var nodes = document.querySelectorAll("#contact a[href]");
+    for (var k = 0; k < nodes.length; k++){
+      var h = nodes[k].getAttribute("href") || "";
+      if (!h || h.charAt(0) === "#") continue;
+      var t = (nodes[k].textContent || "").toLowerCase();
+      if (t.indexOf("vk") > -1 || t.indexOf("вконтакте") > -1) vk = h;
+      else if (t.indexOf("instagram") > -1) ig = h;
+    }
+    return { vk: vk, ig: ig };
   }
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) {
-          var idx = cards.indexOf(en.target);
-          reveal(en.target, Math.max(0, idx));
-          io.unobserve(en.target);
+  function card(cls, href, svg, name, desc){
+    return '<a class="aksocial-card ' + cls + '" href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">'
+      + '<span class="aksocial-glow"></span>'
+      + '<span class="aksocial-ic">' + svg + '</span>'
+      + '<span class="aksocial-tx"><span class="aksocial-name">' + name + '</span><br><span class="aksocial-desc">' + desc + '</span></span>'
+      + '<span class="aksocial-go">→</span></a>';
+  }
+  function build(l){
+    return '<p class="aksocial-sub">Мы в соцсетях</p><div class="aksocial-cards">'
+      + card("aks-vk", l.vk, SVG_VK, "ВКонтакте", "Новости и анонсы")
+      + card("aks-ig", l.ig, SVG_IG, "Instagram", "Визуальный контент")
+      + card("aks-tg", TG_URL, SVG_TG, "Telegram", "Оперативные обновления")
+      + "</div>";
+  }
+  function apply(){
+    var box = document.querySelector("#contact .space-y-3");
+    if (!box || box.getAttribute("data-aksocial") === "1") return false;
+    if (!box.querySelector("a[href]")) return false;
+    box.setAttribute("data-aksocial", "1");
+    box.innerHTML = build(collect());
+    return true;
+  }
+  function watch(box){
+    if (!window.MutationObserver) return;
+    new MutationObserver(function(){
+      if (box.getAttribute("data-aksocial") === "1" && !box.querySelector(".aksocial-cards")){
+        box.removeAttribute("data-aksocial");
+        apply();
+      }
+    }).observe(box, { childList: true });
+  }
+  function removeForm(){
+    var grids = document.querySelectorAll("#contact .grid");
+    var found = false;
+    for (var k = 0; k < grids.length; k++){
+      var g = grids[k];
+      var f = g.querySelector("form");
+      if (!f){
+        if (g.getAttribute("data-aksocial-grid") === "1") found = true;
+        continue;
+      }
+      found = true;
+      var col = f.parentElement;
+      while (col && col.parentElement !== g) col = col.parentElement;
+      if (col) col.remove();
+      g.style.gridTemplateColumns = "1fr";
+      g.style.maxWidth = "860px";
+      g.style.marginLeft = "auto";
+      g.style.marginRight = "auto";
+      if (g.getAttribute("data-aksocial-grid") !== "1"){
+        g.setAttribute("data-aksocial-grid", "1");
+        if (window.MutationObserver){
+          (function(gg){
+            new MutationObserver(function(){
+              var ff = gg.querySelector("form");
+              if (ff){
+                var c = ff.parentElement;
+                while (c && c.parentElement !== gg) c = c.parentElement;
+                if (c) c.remove();
+              }
+            }).observe(gg, { childList: true, subtree: true });
+          })(g);
         }
-      });
-    }, { threshold: 0.15 });
-    cards.forEach(function (c, i) {
-      c.style.transitionDelay = (reduce ? 0 : i * 120) + "ms";
-      io.observe(c);
-    });
-  } else {
-    cards.forEach(function (c) { c.classList.add("ak-go", "ak-ready"); });
+      }
+    }
+    return found;
   }
-
-  /* --- 3D-наклон + прожектор за курсором (только точные указатели) --- */
-  if (fine && !reduce) {
-    cards.forEach(function (card) {
-      var raf = null;
-      card.addEventListener("pointermove", function (e) {
-        var r = card.getBoundingClientRect();
-        var px = (e.clientX - r.left) / r.width;
-        var py = (e.clientY - r.top) / r.height;
-        card.style.setProperty("--mx", (px * 100).toFixed(2) + "%");
-        card.style.setProperty("--my", (py * 100).toFixed(2) + "%");
-        if (!raf) {
-          raf = requestAnimationFrame(function () {
-            card.style.transform = "perspective(950px) rotateY(" + ((px - 0.5) * 7).toFixed(2) +
-              "deg) rotateX(" + ((0.5 - py) * 7).toFixed(2) + "deg) translateY(-4px)";
-            raf = null;
-          });
-        }
-      });
-      card.addEventListener("pointerleave", function () {
-        if (raf) { cancelAnimationFrame(raf); raf = null; }
-        card.style.transform = "";
-      });
-    });
+  function init(){
+    var boxDone = false, formDone = false;
+    function tick(){
+      if (!formDone) formDone = removeForm();
+      if (!boxDone){
+        var b = document.querySelector("#contact .space-y-3");
+        if (b){ boxDone = true; if (apply()) watch(b); }
+      }
+      return formDone && boxDone;
+    }
+    if (tick()) return;
+    var iv = setInterval(function(){ if (tick()) clearInterval(iv); }, 400);
+    setTimeout(function(){ clearInterval(iv); }, 20000);
   }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();
 </script>
-<noscript><style>.ak-card{opacity:1!important;transform:none!important}</style></noscript>
-</body></html>
+<script>
+/* Блок «Доверие через дизайн» — вставка перед секцией «О себе» (#about). */
+(function(){
+  var HTML = '<section class="aktrust"><div class="aktrust-inner">'
+    + '<div class="aktrust-icon"><svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+    + '<circle class="aktrust-ring1" cx="24" cy="32" r="16" fill="none" stroke="#4A90E2" stroke-width="3"/>'
+    + '<circle class="aktrust-ring2" cx="40" cy="32" r="16" fill="none" stroke="#8E44AD" stroke-width="3"/>'
+    + '<circle cx="32" cy="32" r="4" fill="#ffffff" opacity="0.8"/>'
+    + '</svg></div>'
+    + '<h2 class="aktrust-title">Доверие через <span class="grad">дизайн</span></h2>'
+    + '<p class="aktrust-text">Аудитория оценивает уровень надежности и компетентности компании по качеству ее цифровых активов в первые секунды взаимодействия. Если визуальная составляющая сайта устарела или не продумана, уровень доверия к самому бизнесу автоматически снижается. Профессиональный ребрендинг устраняет этот разрыв, синхронизируя внешнюю форму с высоким качеством вашего продукта.</p>'
+    + '</div></section>';
+  function apply(){
+    if (document.querySelector(".aktrust")) return true;
+    var about = document.querySelector("section#about") || document.getElementById("about");
+    if (!about || !about.parentElement) return false;
+    var tmp = document.createElement("div");
+    tmp.innerHTML = HTML;
+    about.parentElement.insertBefore(tmp.firstChild, about);
+    return true;
+  }
+  function watch(){
+    if (!window.MutationObserver) return;
+    new MutationObserver(function(){
+      var about = document.querySelector("section#about") || document.getElementById("about");
+      if (about && about.parentElement && !about.parentElement.querySelector(".aktrust")) apply();
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+  function init(){
+    if (apply()){ watch(); return; }
+    var iv = setInterval(function(){ if (apply()){ clearInterval(iv); watch(); } }, 400);
+    setTimeout(function(){ clearInterval(iv); }, 20000);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script></body></html>
