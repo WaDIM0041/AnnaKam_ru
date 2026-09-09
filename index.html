@@ -105,6 +105,31 @@
 .aktrust-title .grad { background:linear-gradient(135deg,#00ff88,#00ccff); -webkit-background-clip:text; background-clip:text; color:transparent; }
 .aktrust-text { color:#d4d4d8; max-width:42rem; margin:0 auto; font-size:1rem; line-height:1.75; }
 @media (min-width:768px) { .aktrust-text { font-size:1.125rem; } }
+
+/* ===== Плашка разработчика в футере (фон темный -> имя белым) ===== */
+.footer-developer-credit { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:18px; font-family:'Helvetica Neue',Arial,sans-serif; }
+.credit-label { font-size:12px; color:#888888; text-transform:uppercase; letter-spacing:.5px; }
+.credit-link { display:flex; align-items:center; gap:8px; text-decoration:none; transition:opacity .3s ease; }
+.credit-link:hover { opacity:.7; }
+.credit-logo { display:flex; align-items:center; justify-content:center; width:22px; height:22px; background-color:#2b2d42; color:#fff; font-size:10px; font-weight:700; border-radius:4px; letter-spacing:1px; border:1px solid rgba(255,255,255,.15); }
+.credit-name { font-size:13px; font-weight:600; color:#ffffff; letter-spacing:1px; }
+@media (max-width:480px) {
+  .footer-developer-credit { gap:8px; margin-top:14px; }
+  .credit-label { font-size:11px; }
+  .credit-name { font-size:12px; }
+}
+
+/* ===== Все серые тексты — белые (читаемость) ===== */
+.text-muted-foreground { color:#fff !important; }
+.text-muted-foreground\/80 { color:#fff !important; }
+.credit-label { color:#fff; }
+
+/* ===== Ссылки: hover красит текст в цвет ссылки ===== */
+header a.group, footer a.group { transition:color .3s ease; }
+.aksocial-name { transition:color .3s ease; }
+.aksocial-card.aks-vk:hover .aksocial-name { color:#7fb2e5; }
+.aksocial-card.aks-tg:hover .aksocial-name { color:#5ec4f2; }
+.aksocial-card.aks-ig:hover .aksocial-name { color:#f060b8; }
 </style>
 <script>
 (function(){
@@ -334,6 +359,92 @@
       var about = document.querySelector("section#about") || document.getElementById("about");
       if (about && about.parentElement && !about.parentElement.querySelector(".aktrust")) apply();
     }).observe(document.body, { childList: true, subtree: true });
+  }
+  function init(){
+    if (apply()){ watch(); return; }
+    var iv = setInterval(function(){ if (apply()){ clearInterval(iv); watch(); } }, 400);
+    setTimeout(function(){ clearInterval(iv); }, 20000);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+<script>
+/* Плашка «Создание сайта» — строго внутрь <footer>, в конец нижней линии. */
+(function(){
+  var HTML = '<div class="footer-developer-credit"><span class="credit-label">Создание сайта:</span>'
+    + '<a href="https://vk.ru/anna_kamchatka" target="_blank" rel="noopener noreferrer" class="credit-link">'
+    + '<span class="credit-logo">AK</span><span class="credit-name">ANNA KAMCHATKA</span></a></div>';
+  function slot(){
+    var f = document.querySelector("footer");
+    if (!f) return null;
+    var inner = null;
+    var divs = f.querySelectorAll("div");
+    for (var k = 0; k < divs.length; k++){
+      var c = divs[k].className || "";
+      if ((" " + c + " ").indexOf(" flex-col ") > -1){ inner = divs[k]; break; }
+    }
+    return inner || f;
+  }
+  function apply(){
+    var s = slot();
+    if (!s) return false;
+    if (s.querySelector(".footer-developer-credit")) return true;
+    var tmp = document.createElement("div");
+    tmp.innerHTML = HTML;
+    s.appendChild(tmp.firstChild);
+    return true;
+  }
+  function watch(){
+    if (!window.MutationObserver) return;
+    new MutationObserver(function(){
+      var s = slot();
+      if (s && !s.querySelector(".footer-developer-credit")) apply();
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+  function init(){
+    if (apply()){ watch(); return; }
+    var iv = setInterval(function(){ if (apply()){ clearInterval(iv); watch(); } }, 400);
+    setTimeout(function(){ clearInterval(iv); }, 20000);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+<script>
+/* Hover ссылок: текст принимает цвет подчеркивания/акцента ссылки. */
+(function(){
+  function hexOf(style){
+    var m = /#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}/.exec(style || "");
+    return m ? m[0] : null;
+  }
+  function accentOf(a){
+    var spans = a.querySelectorAll("span");
+    for (var k = 0; k < spans.length; k++){
+      var st = spans[k].getAttribute("style") || "";
+      if (st.indexOf("background") > -1){
+        var hex = hexOf(st);
+        if (hex) return hex;
+      }
+    }
+    return null;
+  }
+  function bind(a){
+    if (a.getAttribute("data-akhover") === "1") return;
+    var hex = accentOf(a);
+    if (!hex) return;
+    a.setAttribute("data-akhover", "1");
+    a.addEventListener("mouseenter", function(){ a.style.setProperty("color", hex, "important"); });
+    a.addEventListener("mouseleave", function(){ a.style.removeProperty("color"); });
+  }
+  function apply(){
+    var nodes = document.querySelectorAll("header a.group, footer a.group");
+    for (var k = 0; k < nodes.length; k++) bind(nodes[k]);
+    return nodes.length > 0;
+  }
+  function watch(){
+    if (!window.MutationObserver) return;
+    new MutationObserver(function(){ apply(); }).observe(document.body, { childList: true, subtree: true });
   }
   function init(){
     if (apply()){ watch(); return; }
