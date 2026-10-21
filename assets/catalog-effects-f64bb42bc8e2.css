@@ -1,0 +1,109 @@
+/* Motion and social channels restored on top of the approved catalog layout. */
+.ambient-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1;isolation:isolate}
+.ambient-glow{position:absolute;width:min(760px,75vw);aspect-ratio:1;border-radius:50%;opacity:.48;will-change:transform}
+.ambient-green{left:-22%;top:5%;background:radial-gradient(circle,#00dd852a,transparent 65%);animation:ambient-green 23s ease-in-out infinite}
+.ambient-blue{right:-18%;top:10%;background:radial-gradient(circle,#00b9ee25,transparent 65%);animation:ambient-blue 27s ease-in-out infinite}
+.ambient-violet{left:27%;bottom:-38%;background:radial-gradient(circle,#a67bff25,transparent 65%);animation:ambient-violet 21s ease-in-out infinite}
+.ambient-scan{position:absolute;top:-20%;left:0;right:0;height:20%;background:linear-gradient(transparent,#00ed9d03 97%,#00ed9d12 99%,transparent);animation:ambient-scan 19s linear infinite}
+@keyframes ambient-green{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(10vw,8vh,0) scale(1.22)}}
+@keyframes ambient-blue{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-7vw,12vh,0) scale(.88)}}
+@keyframes ambient-violet{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(6vw,-10vh,0) scale(1.15)}}
+@keyframes ambient-scan{from{transform:translateY(0)}to{transform:translateY(600%)}}
+.hero-copy h1{background:linear-gradient(115deg,#edfff6 2%,#5bf6bc 29%,#06dec7 49%,#37c7f4 68%,#b19bff 86%,#edfff6);background-size:230% 100%;color:transparent;background-clip:text;-webkit-background-clip:text;animation:heading-colors 14s ease-in-out infinite}
+@keyframes heading-colors{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.hero-window-back{animation:window-float-back 12s ease-in-out infinite}.hero-window-front{animation:window-float-front 10s ease-in-out infinite}.hero-window-small{animation:window-float-small 13s ease-in-out infinite}
+@keyframes window-float-back{0%,100%{translate:0 0}50%{translate:4px -12px}}
+@keyframes window-float-front{0%,100%{translate:0 0}50%{translate:0 -16px}}
+@keyframes window-float-small{0%,100%{translate:0 0}50%{translate:6px -10px}}
+.hero-note .status-dot{animation:status-breathe 3.8s ease-in-out infinite}@keyframes status-breathe{0%,100%{box-shadow:0 0 10px #00ed9d60}50%{box-shadow:0 0 22px #00ed9da0}}
+.bg-particles{opacity:.85}.hero-gallery{overflow:hidden;contain:paint}.hero-glow,.orbit{pointer-events:none}.hero-copy,.hero-gallery,.contact-copy,.request-form{min-width:0}
+.button{position:relative;overflow:hidden}.button::after{content:'';position:absolute;inset:-60% auto -60% -80%;width:45%;background:linear-gradient(90deg,transparent,#ffffff35,transparent);transform:skewX(-18deg);pointer-events:none;transition:left .65s}.button:hover::after,.button:focus-visible::after{left:140%}
+.product-preview{box-shadow:0 0 0 transparent;transition:box-shadow .35s,border-color .35s}.product-preview:hover{box-shadow:0 0 38px #00ed9d10;border-color:#00ed9d70}.product-preview:hover img{transform:scale(1.045)}
+.social-section{position:relative;isolation:isolate}.social-section::before{content:'';position:absolute;inset:10% 0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 60%,#24486515,transparent 66%)}
+.social-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.social-card{--social:#75b8ed;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:242px;padding:36px 25px;border-radius:20px;overflow:hidden;isolation:isolate;border:1px solid color-mix(in srgb,var(--social) 40%,transparent);background:linear-gradient(145deg,color-mix(in srgb,var(--social) 12%,#080d0b),#090e0d);transition:transform .35s,box-shadow .35s,border-color .35s}
+.social-instagram{--social:#ea5cae}.social-telegram{--social:#36cef2}.social-vk{--social:#75b8ed}
+.social-card::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 25% 0,color-mix(in srgb,var(--social) 18%,transparent),transparent 65%);opacity:.6;transition:opacity .4s}
+.social-icon{width:70px;height:70px;display:grid;place-items:center;margin-bottom:23px;color:var(--social);border:1px solid color-mix(in srgb,var(--social) 30%,transparent);background:#05070765;border-radius:19px;transition:transform .4s,box-shadow .4s}
+.social-icon svg{width:33px;height:33px}.social-name{font-size:24px;font-weight:600;letter-spacing:-.035em}.social-caption{color:#c1cbd0;font-size:14px;margin-top:8px}.social-arrow{position:absolute;top:20px;right:22px;color:var(--social);opacity:.5;transition:opacity .3s,translate .3s}
+.social-card:hover,.social-card:focus-visible{transform:translateY(-7px);border-color:var(--social);box-shadow:0 18px 55px color-mix(in srgb,var(--social) 12%,transparent)}
+.social-card:hover::before,.social-card:focus-visible::before{opacity:1}.social-card:hover .social-icon,.social-card:focus-visible .social-icon{transform:translateY(-3px) rotate(-5deg);box-shadow:0 0 32px color-mix(in srgb,var(--social) 20%,transparent)}.social-card:hover .social-arrow{opacity:1;translate:3px -3px}
+.footer-socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}.footer-socials a{display:grid;place-items:center;width:48px;height:48px;color:var(--social);border:1px solid color-mix(in srgb,var(--social) 28%,transparent);border-radius:12px;background:color-mix(in srgb,var(--social) 6%,transparent);transition:transform .25s,background .25s,box-shadow .25s}.footer-socials a:hover{transform:translateY(-3px);box-shadow:0 0 24px color-mix(in srgb,var(--social) 16%,transparent)}.footer-socials svg{width:24px;height:24px}
+.back-to-top{position:fixed;right:22px;bottom:24px;z-index:20;width:46px;height:46px;border:1px solid #00ed9d35;border-radius:50%;display:grid;place-items:center;background:#050b08db;color:var(--green);font-size:23px;transition:border-color .3s,box-shadow .3s}.back-to-top:hover{border-color:var(--green);box-shadow:0 0 24px #00ed9d1a}
+/* Pause ambient work in a hidden tab; JS sets this independently of rendering. */
+[data-motion-paused] .ambient-glow,[data-motion-paused] .ambient-scan,[data-motion-paused] .hero-window,[data-motion-paused] .hero-copy h1,[data-motion-paused] .status-dot{animation-play-state:paused}
+@media(max-width:850px){.social-card{min-height:215px;padding:28px 16px}.social-name{font-size:21px}.social-caption{font-size:12px}.social-grid{gap:14px}}
+@media(max-width:700px){.social-grid{grid-template-columns:1fr;gap:16px}.social-card{min-height:174px;display:grid;grid-template-columns:65px 1fr;grid-template-rows:auto auto;align-content:center;justify-content:start;column-gap:24px;padding:30px}.social-icon{grid-row:1/3;margin:0;width:65px;height:65px}.social-name{align-self:end;font-size:25px}.social-caption{align-self:start;font-size:14px;margin-top:4px}.social-card:hover{transform:translateY(-3px)}.ambient-glow{width:110vw;opacity:.45}.back-to-top{right:15px;bottom:17px;width:44px;height:44px}.footer-socials a{width:50px;height:50px}.hero-window-front{animation-duration:12s}.hero-window-back{animation-duration:15s}.hero-window-small{animation-duration:16s}}
+@media(max-width:370px){h2{font-size:2rem}.social-card{padding:26px 22px;column-gap:18px}.social-name{font-size:22px}.social-caption{font-size:12px}.hero-note{font-size:11px;gap:7px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.ambient-glow,.ambient-scan,.hero-copy h1,.hero-window,.status-dot{animation:none!important}.hero-copy h1{background-position:25% 50%;color:#b8f9e6}.hero-window{translate:0 0}.social-card:hover,.social-card:hover .social-icon{transform:none}.ambient-scan{display:none}.button::after{display:none}}
+
+/* One coherent hover language across the catalog, process, terms and contacts. */
+.ak-hover-surface{position:relative;isolation:isolate;--hover-x:50%;--hover-y:50%;--hover-rx:0deg;--hover-ry:0deg;--hover-color:var(--green);transition:transform .32s ease,box-shadow .32s ease,border-color .32s ease,background-color .32s ease}
+/* Same five-second orbit as the original showcase, clipped to the outline
+   instead of rotating a huge overflowing layer across the text. */
+@property --ak-orbit-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes ak-showcase-orbit{to{--ak-orbit-angle:360deg}}
+.ak-hover-surface::after{content:'';position:absolute;inset:-1px;pointer-events:none;padding:2px;border:0;border-radius:inherit;background:conic-gradient(from var(--ak-orbit-angle),transparent 0% 25%,color-mix(in srgb,var(--hover-color) 45%,transparent) 34%,var(--hover-color) 40%,color-mix(in srgb,var(--hover-color) 45%,transparent) 46%,transparent 55% 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity .7s ease;animation:ak-showcase-orbit 5s linear infinite paused;z-index:1}
+.ak-hover-surface:focus-within::after{opacity:1}
+.social-card.ak-hover-surface{--hover-color:var(--social)}
+.section-heading.ak-hover-surface,.hero-copy.ak-hover-surface,.catalog-tail.ak-hover-surface,.contact-copy.ak-hover-surface,.product-spec>div.ak-hover-surface,.product-hero>div.ak-hover-surface{border-radius:10px}
+.section-heading.ak-hover-surface::after,.hero-copy.ak-hover-surface::after,.catalog-tail.ak-hover-surface::after,.contact-copy.ak-hover-surface::after,.product-spec>div.ak-hover-surface::after,.product-hero>div.ak-hover-surface::after{inset:-12px;border-color:transparent}
+.check-list li.ak-hover-surface::after,.process-step.ak-hover-surface::after,.faq-list details.ak-hover-surface::after{inset:-1px -10px;border-radius:8px}
+.product-card.ak-hover-surface::after{inset:-10px;border-radius:14px}
+.two-column>div.ak-hover-surface::after,.page-intro.ak-hover-surface::after,.prose.ak-hover-surface::after{inset:-12px;border-color:transparent;border-radius:10px}
+@media(hover:hover) and (pointer:fine){
+ .ak-hover-surface:hover::after{opacity:1;animation-play-state:running}
+ .ak-hover-surface[data-hover-tilt=true]:hover{transform:perspective(1100px) rotateX(var(--hover-rx)) rotateY(var(--hover-ry)) translateY(-3px);box-shadow:0 14px 38px color-mix(in srgb,var(--hover-color) 6%,transparent)}
+ .product-card.ak-hover-surface:hover .product-preview{border-color:color-mix(in srgb,var(--hover-color) 40%,transparent);box-shadow:0 0 32px color-mix(in srgb,var(--hover-color) 8%,transparent)}
+ .product-card.ak-hover-surface:hover .product-preview img{transform:scale(1.035)}
+ .license-card.ak-hover-surface:hover,.request-form.ak-hover-surface:hover,.price-panel.ak-hover-surface:hover{border-color:color-mix(in srgb,var(--hover-color) 40%,transparent)}
+ .process-step.ak-hover-surface:hover h3,.check-list li.ak-hover-surface:hover h3,.faq-list details.ak-hover-surface:hover summary,.contact-channel.ak-hover-surface:hover strong{color:var(--hover-color)}
+ .social-card.ak-hover-surface:hover{box-shadow:0 18px 45px color-mix(in srgb,var(--social) 14%,transparent)}
+}
+[data-motion-paused] .ak-hover-surface::after{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.ak-hover-surface[data-hover-tilt=true]:hover{transform:none}.ak-hover-surface,.ak-hover-surface::after{transition:none}.ak-hover-surface::after{animation:none!important}}
+
+/* The original title strip also lit up inside, not only around its outline. */
+.preview-site-name{position:relative;isolation:isolate;overflow:hidden;--caption-accent:var(--hover-color,var(--green));transition:color .3s ease,text-shadow .5s ease}
+.preview-site-name::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 80% 150% at 50% 110%,color-mix(in srgb,var(--caption-accent) 40%,transparent),color-mix(in srgb,var(--caption-accent) 16%,transparent) 42%,transparent 82%);opacity:0;transition:opacity .5s ease}
+.preview-site-name::after{content:'';position:absolute;bottom:0;left:16%;right:16%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--caption-accent) 65%,transparent),transparent);opacity:0;transform:scaleX(0);transition:opacity .5s ease,transform .5s ease}
+.product-card:focus-within .preview-site-name::before,.product-card:focus-within .preview-site-name::after,.product-hero .browser-window:focus-visible .preview-site-name::before,.product-hero .browser-window:focus-visible .preview-site-name::after{opacity:1;transform:scaleX(1)}
+@media(hover:hover) and (pointer:fine){
+ .product-card:hover .preview-site-name::before,.product-card:hover .preview-site-name::after,.product-hero .browser-window:hover .preview-site-name::before,.product-hero .browser-window:hover .preview-site-name::after{opacity:1;transform:scaleX(1)}
+ .product-card:hover .preview-site-name,.product-hero .browser-window:hover .preview-site-name{text-shadow:0 0 18px color-mix(in srgb,var(--caption-accent) 28%,transparent)}
+ .product-preview-caption:hover{color:var(--caption-accent)}
+}
+
+/* Restore the social block's distinct original behaviours, not generic tilt. */
+.social-vk{--social:#7fb2e5;--social-tint:rgba(76,117,163,.22);--social-border:rgba(76,117,163,.5)}
+.social-telegram{--social:#5ec4f2;--social-tint:rgba(38,165,228,.22);--social-border:rgba(38,165,228,.5)}
+.social-instagram{--social:#f060b8;--social-tint:rgba(214,36,159,.20);--social-border:rgba(214,36,159,.5)}
+.social-card.ak-hover-surface{border-radius:24px;background:var(--social-tint);border-color:var(--social-border);box-shadow:0 8px 30px rgba(0,0,0,.3);text-align:center;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.social-glow{position:absolute;inset:-2px;border-radius:22px;z-index:-1;pointer-events:none;opacity:0;background:conic-gradient(from 0deg,#4c75a340,#26a5e440,#d6249f40,#ff9ff340,#4c75a340);background-size:300% 300%;animation:aksocial-rot 4s linear infinite paused;transition:opacity .4s ease}
+@keyframes aksocial-rot{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes aksocial-swing{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes aksocial-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes aksocial-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.social-icon{width:64px;height:64px;margin-bottom:14px;border-radius:18px;background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.15)}
+.social-icon svg{width:30px;height:30px}
+.social-vk .social-icon svg{animation:aksocial-swing 2.5s ease-in-out infinite}
+.social-telegram .social-icon svg{animation:aksocial-float 3s ease-in-out infinite}
+.social-instagram .social-icon svg{animation:aksocial-spin 8s linear infinite}
+.social-name{font-size:20px;font-weight:700;letter-spacing:normal;transition:color .3s ease}
+.social-caption{color:#f5f5f5;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.social-arrow{display:none}
+.social-card:focus-visible .social-icon svg{animation-play-state:paused}
+.social-card:focus-visible .social-glow{opacity:1;animation-play-state:running}
+.social-card:focus-visible .social-name{color:var(--social)}
+.social-card:focus-visible .social-icon{transform:none;box-shadow:none}
+.social-card.ak-hover-surface:focus-visible{transform:translateY(-10px) scale(1.02);box-shadow:0 15px 40px rgba(0,0,0,.5)}
+@media(hover:hover) and (pointer:fine){
+ .social-card.ak-hover-surface:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 15px 40px rgba(0,0,0,.5)}
+ .social-card:hover .social-icon{transform:none;box-shadow:none}
+ .social-card:hover .social-icon svg{animation-play-state:paused}
+ .social-card:hover .social-glow{opacity:1;animation-play-state:running}
+ .social-card:hover .social-name{color:var(--social)}
+}
+.social-section[data-social-paused] .social-icon svg,.social-section[data-social-paused] .social-glow,[data-motion-paused] .social-icon svg,[data-motion-paused] .social-glow{animation-play-state:paused}
+@media(max-width:700px){.social-icon{margin-bottom:0}.social-card .social-name{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.social-icon svg,.social-glow{animation:none!important}.social-card.ak-hover-surface:is(:hover,:focus-visible){transform:none}.social-glow,.social-name{transition:none}}

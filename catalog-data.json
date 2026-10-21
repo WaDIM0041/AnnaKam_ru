@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "solutions": [
+    {
+      "slug": "likovanie",
+      "name": "Ликование",
+      "category": "education",
+      "description": "Сценическая подача школы танцев: анимация, направления занятий, педагоги, достижения и знакомство с ансамблем.",
+      "image": "/AnnaKam_ru/portfolio/likovanie-v2-425e2871d96a.png",
+      "demo": "http://likovanie.annakam.ru/"
+    },
+    {
+      "slug": "w-optics",
+      "name": "W-Optics",
+      "category": "goods",
+      "description": "Продукт в центре внимания: очки 2 в 1, варианты использования и подробное объяснение преимуществ.",
+      "image": "/AnnaKam_ru/portfolio/w-optics.webp",
+      "demo": "https://woptic.annakam.ru"
+    },
+    {
+      "slug": "zodchiy",
+      "name": "ЗОДЧИЙ",
+      "category": "construction",
+      "description": "Проекты домов и работа компании: крупные изображения, структурная подача услуг и знакомство с подходом к строительству.",
+      "image": "/AnnaKam_ru/uploads/u6a92c457d053e2.99689072.webp",
+      "demo": "https://wadim0041.github.io/nextjs-template/"
+    },
+    {
+      "slug": "aroma",
+      "name": "Aroma",
+      "category": "restaurants",
+      "description": "Тёплая атмосфера кофейни: знакомство с местом, меню и история кофе в спокойной редакционной подаче.",
+      "image": "/AnnaKam_ru/showcase/msnqk7uu-39cd943c.webp",
+      "demo": "https://wadim0041.github.io/aroma-coffee/"
+    },
+    {
+      "slug": "art-elit-balkon",
+      "name": "АртЭлитБалкон",
+      "category": "construction",
+      "description": "Выразительная подача сложной услуги: конструкции, материалы, этапы работ и интерактивная оценка проекта.",
+      "image": "/AnnaKam_ru/uploads/u6aa42eb6237dd2.41248400.jpg",
+      "demo": "https://artbalkon.annakam.ru"
+    },
+    {
+      "slug": "studio-seta",
+      "name": "Studio Seta",
+      "category": "beauty",
+      "description": "Тёмная эстетика студии: услуги, мастера и выразительная подача, которая помогает познакомиться с брендом.",
+      "image": "/AnnaKam_ru/uploads/u6a880e1d8acc56.98389262.jpg",
+      "demo": "https://wadim0041.github.io/studio-seta-v2/"
+    },
+    {
+      "slug": "linenway",
+      "name": "Льняной путь",
+      "category": "goods",
+      "description": "Светлая витрина с акцентом на фактуру льна, фотографии коллекций и подбор вещей для дома.",
+      "image": "/AnnaKam_ru/portfolio/linenway.webp",
+      "demo": "https://linenway.ru"
+    },
+    {
+      "slug": "master-stilist",
+      "name": "Мастер-Стилист",
+      "category": "beauty",
+      "description": "Персональный разбор стиля: знакомство с услугой, подача образов и понятное объяснение результата консультации.",
+      "image": "/AnnaKam_ru/portfolio/master-stilist.webp",
+      "demo": "https://master-stilist.ru"
+    },
+    {
+      "slug": "stylist-dark",
+      "name": "Мастер-Стилист / Dark",
+      "category": "beauty",
+      "description": "Тёмная редакционная версия сайта стилиста: крупные образы, выразительная типографика и спокойная анимация.",
+      "image": "/AnnaKam_ru/uploads/u6a905b5286fe13.35291385.webp",
+      "demo": "https://wadim0041.github.io/master-stilist1/"
+    },
+    {
+      "slug": "izzy-hook",
+      "name": "Izzy Hook",
+      "category": "restaurants",
+      "description": "Атмосфера заведения: крупные фотографии, меню, события и знакомство с пространством.",
+      "image": "/AnnaKam_ru/portfolio/izzy-hook.webp",
+      "demo": "https://wadim0041.github.io/izzy-hook/"
+    },
+    {
+      "slug": "svoi",
+      "name": "СВОИ",
+      "category": "restaurants",
+      "description": "Домашнее кафе в тёплой подаче: блюда, место встречи и простая навигация для посетителя.",
+      "image": "/AnnaKam_ru/showcase/msnqkey9-0f620959.webp",
+      "demo": "https://wadim0041.github.io/uyut-cafe/"
+    }
+  ]
+}

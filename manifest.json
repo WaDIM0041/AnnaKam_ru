@@ -1,11 +1,15 @@
 {
-  "name": "Анна Камчатка — Веб-дизайнер и креативный агент",
-  "short_name": "AnnaKam",
+  "name": "ANNA KAM — готовые сайты для бизнеса",
+  "short_name": "ANNA KAM",
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+    {
+      "src": "/AnnaKam_ru/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
   ],
-  "start_url": "/",
+  "start_url": "/AnnaKam_ru/",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#00ccff"
+  "background_color": "#050707",
+  "theme_color": "#00ed9d"
 }

@@ -1,0 +1,55 @@
+/* ANNA KAM: first audit corrections. Original visual language is preserved. */
+html { scroll-padding-top: 100px; }
+:where(a, button, [tabindex]):focus-visible { outline: 2px solid #00ccff; outline-offset: 5px; }
+header button { min-width: 44px; min-height: 44px; }
+header a[href="#"] { min-width: 44px; min-height: 44px; }
+footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
+footer p.text-xs { color: #a1a1aa; }
+#portfolio a[target="_blank"], #showcase a[target="_blank"] { min-height: 44px; }
+.ak-skip-link { position: fixed; top: 8px; left: 8px; z-index: 10000; padding: 12px 18px; background: #00ccff; color: #050505; border-radius: 8px; transform: translateY(-160%); }
+.ak-skip-link:focus { transform: translateY(0); }
+.ak-cookie-preferences { font: inherit; color: #a1a1aa; min-height: 44px; padding: 8px; }
+.ak-static-fallback { max-width: 1000px; margin: 0 auto; padding: 40px 24px; color: #fff; line-height: 1.7; }
+.ak-static-fallback a { color: #00ccff; }
+/* Render the SVG grain at its authored 256px tile size instead of rerasterizing
+   the turbulence filter at the full viewport size. The texture is preserved. */
+.noise-overlay::before { background-size: 256px 256px; }
+.ak-glow { will-change: transform; }
+.ak-glow-green { animation: ak-glow-green 20s ease-in-out infinite; }
+.ak-glow-blue { animation: ak-glow-blue 25s ease-in-out infinite; }
+.ak-glow-violet { animation: ak-glow-violet 18s ease-in-out infinite; }
+@keyframes ak-glow-green { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(50px,-40px) scale(1.1)} 66%{transform:translate(-30px,20px) scale(.9)} }
+@keyframes ak-glow-blue { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-40px,30px) scale(.9)} 66%{transform:translate(30px,-50px) scale(1.1)} }
+@keyframes ak-glow-violet { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-30px) scale(1.05)} 66%{transform:translate(-20px,40px) scale(.95)} }
+/* Keep the availability indicator below the fixed navigation at every width. */
+main > div.flex-1 > section:first-child > div.absolute.top-8 { top: 92px; }
+@media (min-width: 768px) {
+  main > div.flex-1 > section:first-child { padding-top: 148px; }
+}
+/* Only below-the-fold, self-contained blocks are deferred. Unsupported browsers
+   render them normally; intrinsic height is recorded by the enhancement script. */
+@supports (content-visibility: auto) {
+  .ak-deferred-section { content-visibility: auto; contain-intrinsic-size: auto var(--ak-section-height, 800px); }
+}
+@media (max-width: 767px) {
+  main > div.flex-1 > section:first-child { padding-top: 140px; padding-bottom: 80px; min-height: 100svh; }
+  main > div.flex-1 > section:first-child > div.absolute.top-8 { top: 92px; }
+  main > div.flex-1 > section:first-child p[class*="tracking-[0.3em]"] { text-align: center; }
+  main > div.flex-1 > section:first-child > div.text-center { margin-bottom: 32px; }
+  main > div.flex-1 > section:first-child > div.flex.flex-wrap { margin-bottom: 32px; }
+  main > div.flex-1 > section:first-child > div.flex.flex-col { margin-bottom: 24px; }
+  [aria-label="Настройки конфиденциальности"] button { min-height: 44px; }
+  [aria-label="Настройки конфиденциальности"] > div { padding: 0 8px max(8px, env(safe-area-inset-bottom)); }
+  [aria-label="Настройки конфиденциальности"] .p-4 { padding: 10px 12px; gap: 8px; }
+  [aria-label="Настройки конфиденциальности"] .mt-0\.5.shrink-0 { display: none; }
+  [aria-label="Настройки конфиденциальности"] .self-end { align-self: stretch; display: grid; grid-template-columns: 1fr 1fr; }
+  [aria-label="Настройки конфиденциальности"] button { width: 100%; padding-inline: 8px; }
+  [aria-label="Настройки конфиденциальности"] .backdrop-blur-xl { backdrop-filter: blur(8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  main > canvas, main > div.pointer-events-none { visibility: hidden; }
+}
+
+@media (max-width: 640px) { .ak-cookie-essential { grid-column: 1 / -1; } }
