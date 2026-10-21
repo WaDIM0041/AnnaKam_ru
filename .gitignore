@@ -93,3 +93,10 @@ anna-bot-private/
 !bot-api/.htaccess
 !bot/.htaccess
 !_source/.htaccess
+
+# Public reviewed bot implementation
+!bot-api/
+!bot-api/*.php
+!bot-api/.htaccess
+!bot/.htaccess
+!_source/.htaccess
