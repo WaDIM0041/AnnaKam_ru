@@ -46,3 +46,8 @@
 .signature-hero h1.signature-name{max-width:none;white-space:nowrap}.signature-hero h1.signature-name span{display:inline-block}@media(max-width:700px){.signature-hero h1.signature-name{white-space:normal}.signature-hero h1.signature-name span{display:block}}
 
 .signature-hero .corner-tl,.signature-hero .corner-bl{left:calc((100% - 100vw)/2 + 32px)}.signature-hero .corner-tr,.signature-hero .corner-br{right:calc((100% - 100vw)/2 + 32px)}@media(max-width:700px){.signature-hero .corner-tl,.signature-hero .corner-bl{left:calc((100% - 100vw)/2 + 16px)}.signature-hero .corner-tr,.signature-hero .corner-br{right:calc((100% - 100vw)/2 + 16px)}}
+
+/* Restore the complete offer and gallery below the signature introduction. */
+.offer-hero .offer-title{margin:0;font-size:clamp(62px,6.4vw,94px);font-weight:650;line-height:1.04;letter-spacing:-.055em;background:linear-gradient(120deg,#40edb3,#00d5d8 65%,#58b7fb);background-clip:text;-webkit-background-clip:text;color:transparent;text-wrap:balance}.offer-hero{margin-top:20px}.offer-hero .hero-identity{justify-content:flex-start}.offer-hero .identity-directions{justify-content:flex-start}
+@media(max-width:1100px){.offer-hero .offer-title{font-size:clamp(52px,6.4vw,72px)}}
+@media(max-width:700px){.offer-hero .offer-title{font-size:clamp(46px,10vw,68px)}}
