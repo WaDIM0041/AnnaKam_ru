@@ -1,3 +1,2 @@
 /* Only the host is styled here; widget styles live in its shadow root. */
-anna-kam-assistant{position:fixed;right:24px;bottom:24px;z-index:10000;display:block;color-scheme:dark}
-@media(max-width:600px){anna-kam-assistant{right:14px;bottom:14px}}
+anna-kam-assistant{position:relative;display:block;width:100%;margin:24px 0 40px;color-scheme:dark}
