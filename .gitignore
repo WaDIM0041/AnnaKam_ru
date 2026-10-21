@@ -37,3 +37,10 @@ _new_backup_2208/
 *.sqlite
 *.sqlite3
 anna-bot-private/
+
+# Public reviewed bot implementation
+!bot-api/
+!bot-api/*.php
+!bot-api/.htaccess
+!bot/.htaccess
+!_source/.htaccess
