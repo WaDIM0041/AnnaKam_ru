@@ -25,3 +25,15 @@ Thumbs.db
 # _next/, portfolio/, privacy/, terms-of-use/, _not-found/, 404/, uploads/, og-image.png
 # --- Local snapshots/backups ---
 _new_backup_2208/
+
+# Public reviewed bot implementation
+!bot-api/
+!bot-api/*.php
+!bot-api/.htaccess
+!bot/.htaccess
+!_source/.htaccess
+!/.htaccess
+.env
+*.sqlite
+*.sqlite3
+anna-bot-private/

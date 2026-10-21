@@ -1,0 +1,7 @@
+{
+  "name": "anna-kam-catalog",
+  "private": true,
+  "type": "module",
+  "scripts": {"build": "node build.mjs"},
+  "description": "Static catalog generator. No external build dependencies."
+}

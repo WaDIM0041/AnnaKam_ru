@@ -1,0 +1,94 @@
+Options -Indexes
+AddDefaultCharset UTF-8
+
+# Pretty URLs for /admin -> /admin/index.html (Next.js static export)
+DirectoryIndex index.html
+
+# Custom error pages
+ErrorDocument 404 /404.html
+
+# Force HTTPS + non-www
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Pass Authorization header to PHP (admin API Bearer auth; CGI/FPM strips it otherwise)
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # HTTP -> HTTPS (учитываем, что за сайтом может быть прокси nginx)
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !^https$
+    RewriteRule ^(.*)$ https://annakam.ru%{REQUEST_URI} [R=301,L]
+
+    # www -> без www
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^(.*)$ https://annakam.ru%{REQUEST_URI} [R=301,L]
+
+    # Redirect only explicitly requested file aliases, not DirectoryIndex subrequests.
+    RewriteCond %{THE_REQUEST} \s/+index\.html[?\s] [NC]
+    RewriteRule ^index\.html$ https://annakam.ru/ [R=301,L]
+    RewriteCond %{THE_REQUEST} \s/+(privacy|terms-of-use)/index\.html[?\s] [NC]
+    RewriteRule ^(privacy|terms-of-use)/index\.html$ https://annakam.ru/$1/ [R=301,L]
+    RewriteRule ^(privacy|terms-of-use)\.html$ https://annakam.ru/$1/ [R=301,L]
+    RewriteRule ^(privacy|terms-of-use)$ https://annakam.ru/$1/ [R=301,L]
+</IfModule>
+
+# Block direct access to internal files/dirs
+<IfModule mod_rewrite.c>
+    RewriteRule "^(data|_source|INSTALL|_local_old_backup|Удаленые файлы)(/|$)" - [F,L,NC]
+    # Preserve ACME certificate renewal; deny other hidden paths.
+    RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+    # Root instructions are not public content. Keep Next.js route payloads readable.
+    RewriteRule "^(?!(?:robots|index|__next(?:\.[A-Za-z0-9_]+)?)\.txt$)[^/]+\.txt$" - [F,L,NC]
+</IfModule>
+<FilesMatch "(?i)(?:\.(sql|db|db-wal|db-shm|sqlite|sqlite3|log|bak|backup|old|env|ini|ps1|py|md|swp|swo|zip|7z|tar|gz)|~)$">
+    Require all denied
+</FilesMatch>
+
+# Baseline protection compatible with existing inline Next.js scripts.
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "DENY"
+    Header always set Content-Security-Policy "base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Enable .webp and other static types
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+    AddType image/avif .avif
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+    AddType application/manifest+json .webmanifest
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# Brotli compression (preferred by modern browsers, if module present)
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/avif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# BEGIN GENERATED SCRIPT CSP
+# Staged policy: tested in enforced mode locally, report-only until approved rollout.
+<IfModule mod_headers.c>
+    Header always set Content-Security-Policy-Report-Only "script-src 'self' 'sha256-OBTN3RiyCV4Bq7dFqZ5a2pAXjnCcCYeTJMO2I/LYKeo=' 'sha256-ZL5eu/p1+YPRDYqbL/vvq6uouaKuv4eXber+wNz/EiU=' 'sha256-9pBdxiqIRPCxNJajkoJ5ljWEn8p1vumVfTzH2cVP438=' 'sha256-OAFKlH4ly10Srt4T36bnKKg7JGyc/5jzikALu4eJwPQ=' 'sha256-5eQiQ0HjeLWplVvFkhu8DLCiEU8Px/sbvfGgU5HxHkQ=' 'sha256-18HZLJHaym5aRoTQ+BpwqLdKq7ZCzfRvCPn3g13pfKc=' 'sha256-0REXNGPXZhByZxfJqE8Rgm/JD0mMZm0CHqJr3qwyZ9s=' 'sha256-NQ73GzszlZHjy3VhB+NS/VdtZJfAfZojwaw7oNmD9Ak=' 'sha256-9a+90JC57HcfNRM/ei5NJ3j0h+MJszkUPdRhZUu7sZ8=' 'sha256-OlJq0cruA+e72feFEh2HyBQKNAeXTog/E2po+n5YAt8=' 'sha256-YUb7pFALysMx4fzLlrQxT5QaSy1VT4AnAeJuLqfoTzQ=' 'sha256-lh/QxjxnPBVR/3Fygdy4zPRl2CTs2TBdSoDAe5kDTaA=' 'sha256-8GCATSfLhQhO2as/SzL2s1RNJCBCh72r1O5iKNJ0aRI=' 'sha256-fN4jpjSmNl/NDqh+R1n2x5418DX84mRhWWkRyN8L+Yw=' 'sha256-qB3PtyB/mNHLqCifXrL9XdC4fK9L3O9HGDbUgE7HQa8=' 'sha256-zlulZm9jEWeZI1diVTWY66NMNTjAfIdmMA7bX0uzb3o=' 'sha256-nzmdl+AXdlsLPaG5B+ouuCXbm2uL+onDzFRTXheLkqo=' 'sha256-e6htxS8YmeZld0Vc4SJBoXVEI1dyR9LloKfD0hLyAfU=' 'sha256-WpQ6O/hizkPc/n2M3qhbHbGszHfj7oxGe4PiL4Vr25Q=' 'sha256-pXrHhece2gA47rQyqdAYMaKZyjuI4qsX3etVFSTaTuM=' 'sha256-fWYlnJdmdKS/fBy9Av6avg+5jDiRUF5YqitTByH7/qk=' 'sha256-iQlNcwySv/teVtAUqmfSKqYGZrNurowwXesemJ5J7t8=' 'sha256-er/NgXdSX0PLEmDFz9/qsx4pGL1AxTSdKwq6JsmVtAk=' 'sha256-J4f5sfIwmUbeNUN1W7tfByQsQnoT0xfyKftg1gruKEU=' 'sha256-oTTAEM53vK4mzIW+n6yCwZ+0Zx79Oms1eP8h5HgSsSg=' 'sha256-puApSgGx6b7uez0BLB13ac2fKLLxbRESHcHXzLK6HTI=' 'sha256-gu+eDDeXWORkHLIAciWf4JQPfeOIIDl1Th5OnkxWaas=' 'sha256-vSVE0AhMwolNM1gz6+a1XUZ/jRqgnt1yKaSiWkjZZ10=' 'sha256-GaxAUC6+4ahOzrakzq4TgtH7voqYmdBoa0Ekb8YEows=' 'sha256-xm9qBRlE4Hg+60KaNzekjYOmbOc4qctWWbECUMMnizk=' 'sha256-D+/JtnQMvNpOe3NysuwigogX5GbiIKAqkLvFdqPVWJI=' 'sha256-5rxke6df1NrKGCRiD/1TaA90++Tkja1CsfiYFV2H0fI=' 'sha256-eeHSjkF0bTRCHqSwuROkFG7HpMzaV8BhtKMyEPsiQqM=' 'sha256-rAbnIGWcyjMGGpGBsHW4ZrGdGBwzqwxUo6wH/i25c0A=' 'sha256-6rujiS+XjCWeXON5J8w1ag9lJeUaBf/t6+DrEhfyc1M=' 'sha256-fAtBebu4ejHVPCNf7LEi4LEEJ9+zaGkz7A3aDLKVpyI=' 'sha256-NhQWG+fVyZfZOgzC8wJSSQ9LOGG1D7EIGG713ecwOWo=' 'sha256-yxSLvwXKe8mMO2fEBbBzSGncY7hor/Ii2F7eqGx+gYA=' 'sha256-zwFQiF+RLlap5WddgKmwArqZQpxSGaDq53Cbud0tM6g=' 'sha256-vhD7T3YasNsinQK3B8rQfZiluW1G3eYWFF1Iowwr5TA='; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'"
+</IfModule>
+# END GENERATED SCRIPT CSP

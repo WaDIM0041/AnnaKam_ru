@@ -1,16 +1,9 @@
-# annakam.ru robots.txt
 User-agent: *
 Allow: /
-Disallow: /api/
 Disallow: /admin/
 Disallow: /data/
+Disallow: /_source/
 Disallow: /INSTALL/
-
-User-agent: Yandex
-Allow: /
-Crawl-delay: 1
-
-User-agent: Googlebot
-Allow: /
+Disallow: /api/
 
 Sitemap: https://annakam.ru/sitemap.xml

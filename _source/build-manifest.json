@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2026-10-21T11:34:34.896Z",
+  "pages": [
+    "/",
+    "/catalog/",
+    "/catalog/cafe-restaurants/",
+    "/catalog/beauty-services/",
+    "/catalog/construction/",
+    "/catalog/products/",
+    "/catalog/schools-education/",
+    "/sites/likovanie/",
+    "/sites/w-optics/",
+    "/sites/zodchiy/",
+    "/sites/aroma/",
+    "/sites/art-elit-balkon/",
+    "/sites/studio-seta/",
+    "/sites/linenway/",
+    "/sites/master-stilist/",
+    "/sites/stylist-dark/",
+    "/sites/izzy-hook/",
+    "/sites/svoi/",
+    "/how-to-buy/",
+    "/licenses/",
+    "/support/"
+  ],
+  "assets": [
+    "/assets/catalog-styles-b448921dff40.css",
+    "/assets/catalog-app-5b1dabc08261.js",
+    "/assets/catalog-effects-6abaa0e0ae10.css"
+  ],
+  "solutions": 11,
+  "releaseReady": false,
+  "publicationBlockers": [
+    "Настоящие реквизиты и окончательные документы",
+    "Проверка комплектации, прав и условий каждого продаваемого решения",
+    "Интеграционная проверка на инфраструктуре хостинга",
+    "Отдельное разрешение владельца на публикацию"
+  ]
+}
