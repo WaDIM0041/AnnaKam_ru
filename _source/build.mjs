@@ -5,6 +5,7 @@ import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {enhanceHtml} from './visual-effects.mjs';
 import {growthSection,requestExtras,supportContent} from './offer.mjs';
+import {integrateProjectOrbits} from './project-orbits.mjs';
 const source=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(source,'..');
 const origin='https://annakam.ru';
 const products=JSON.parse(fs.readFileSync(path.join(source,'products.json'),'utf8'));
@@ -12,9 +13,10 @@ const personalProject={slug:'k-zvezdam',recordId:'personal-k-zvezdam',recordType
 const displayProjects=[...products.slice(0,3),personalProject,...products.slice(3)];
 const e=v=>String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 const pages=[],categories=[{id:'restaurants',slug:'cafe-restaurants',label:'Кафе и рестораны',text:'Готовые решения для кофейни, кафе, ресторана и бара. Покажите атмосферу, меню и способ связаться с заведением.'},{id:'beauty',slug:'beauty-services',label:'Красота и услуги',text:'Сайты для персональных услуг и студий: знакомство со специалистами, работы, состав услуг и путь к записи.'},{id:'construction',slug:'construction',label:'Строительство и ремонт',text:'Сайты для строительных и инженерных услуг: объекты, материалы, этапы работы и понятная презентация сложной задачи.'},{id:'goods',slug:'products',label:'Товары и коллекции',text:'Сайты для одного продукта и коллекций. Покажите особенности товара и согласуйте подходящий сценарий заказа.'},{id:'education',slug:'schools-education',label:'Школы и обучение',text:'Сайты для школ, студий и образовательных проектов: направления занятий, команда, достижения и знакомство с форматом обучения.'}];
-function write(relative,text){const p=path.join(root,relative);if(!p.startsWith(root+path.sep))throw Error('Invalid output');if(relative.endsWith('.html')&&typeof text==='string')text=enhanceHtml(text,effects);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,text);}
+function write(relative,text){const p=path.join(root,relative);if(!p.startsWith(root+path.sep))throw Error('Invalid output');if(relative.endsWith('.html')&&typeof text==='string')text=enhanceHtml(text,effects);if(relative==='index.html')text=integrateProjectOrbits(text,displayProjects,orbitAssets);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,text);}
 function asset(file){const data=fs.readFileSync(path.join(source,file));const ext=path.extname(file);const name=`assets/catalog-${path.basename(file,ext)}-${crypto.createHash('sha256').update(data).digest('hex').slice(0,12)}${ext}`;write(name,data);return '/'+name;}
 const css=asset('styles.css'),js=asset('app.js'),effects=asset('effects.css');
+const orbitAssets={css:asset('project-orbits.css'),js:asset('project-orbits.js')};
 for(const p of products){const demo=new URL(p.demo);if(!/^[a-z0-9-]+$/.test(p.slug)||!p.image.startsWith('/')||!['https:','http:'].includes(demo.protocol)||demo.username||demo.password)throw Error('Invalid product');if(!fs.existsSync(path.join(root,p.image.slice(1))))throw Error('Missing product image: '+p.image);}
 function button(label,href,secondary=false){return `<a class="button${secondary?' button-secondary':''}" href="${e(href)}">${e(label)}<span aria-hidden="true">↗</span></a>`;}
 
