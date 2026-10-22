@@ -49,6 +49,22 @@
     @keyframes holo-float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-13px) rotate(1deg)}}
     @media(max-width:600px){.holo-stage{padding-top:26px}.launcher-glow{width:min(80vw,370px);height:min(80vw,370px)}.launcher-glow .launcher{padding:13%;gap:10px}.launcher .mark{width:48px;height:48px;font-size:18px}.holo-kicker{font-size:8px;margin-bottom:10px}.launcher strong{font-size:23px}.launcher small{font-size:12px}.launcher-cta{margin-top:13px!important;font-size:11px!important}.holo-description{margin-top:36px;font-size:13px}.holo-stage::after{top:calc(26px + min(80vw,370px))}}
     @media(prefers-reduced-motion:reduce){.launcher-glow,.launcher-glow::before,.launcher::before{animation:none}.launcher::before{transition:none}}
+
+    :host([data-layout="catalog"]) .holo-stage{grid-template-columns:280px minmax(0,1fr);align-items:center;gap:52px;padding:32px 28px 44px;max-width:1120px;margin:auto}
+    :host([data-layout="catalog"]) .launcher-glow{width:250px;height:250px}
+    :host([data-layout="catalog"]) .launcher-glow .launcher{padding:10%;gap:9px}
+    :host([data-layout="catalog"]) .launcher .mark{width:42px;height:42px;font-size:17px}
+    :host([data-layout="catalog"]) .holo-kicker{display:none}
+    :host([data-layout="catalog"]) .launcher strong{font-size:24px}
+    :host([data-layout="catalog"]) .launcher small{font-size:11px;margin-top:10px}
+    :host([data-layout="catalog"]) .launcher-cta{font-size:10px!important;margin-top:12px!important}
+    :host([data-layout="catalog"]) .holo-stage::after{top:285px;left:50px;width:230px}
+    :host([data-layout="catalog"]) .holo-description{text-align:left;margin:0;max-width:680px;font-size:14px;line-height:1.7}
+    .business-kicker{color:#75ddcc;font-size:12px;margin-bottom:12px!important}
+    .business-title{font-size:clamp(24px,3vw,36px);line-height:1.16;letter-spacing:-.025em;color:#ecfff9;margin:0 0 18px}
+    .business-steps{display:flex;flex-wrap:wrap;gap:8px 20px;margin:18px 0;color:#c8eee3;font-size:12px}
+    .business-note{font-size:12px;color:#91aaa2}
+    @media(max-width:760px){:host([data-layout="catalog"]) .holo-stage{grid-template-columns:1fr;gap:30px;padding:24px 16px 32px}:host([data-layout="catalog"]) .launcher-glow{width:210px;height:210px}:host([data-layout="catalog"]) .launcher strong{font-size:21px}:host([data-layout="catalog"]) .launcher .mark{width:34px;height:34px;font-size:14px}:host([data-layout="catalog"]) .launcher-glow .launcher{gap:5px}:host([data-layout="catalog"]) .holo-stage::after{top:230px;left:50%;transform:translateX(-50%) scaleY(.5);width:190px}:host([data-layout="catalog"]) .holo-description{font-size:13px}}
   </style>
   <div class="holo-stage"><div class="launcher-glow"><button class="launcher" aria-haspopup="dialog" aria-label="Попробовать чат-бота ANNA KAM"><span class="mark" aria-hidden="true">AK</span><span><span class="holo-kicker">На связи с вашим бизнесом</span><strong>Помощник<br>ANNA KAM</strong><small>Ваш менеджер по продажам.<br>На сайте. Круглосуточно.</small><span class="launcher-cta">Коснитесь, чтобы начать ↗</span></span></button></div><div class="holo-description"><p>Клиент зашёл вечером или в выходной? Чат-бот встретит его, ответит на вопросы по материалам вашего бизнеса, уточнит потребности и поможет выбрать подходящее предложение. Подведёт к покупке и подготовит обращение вам — окончательные условия сделки согласует человек.</p><p>Попробуйте на примере своего бизнеса: расскажите, чем вы занимаетесь, и представьте, как такой помощник будет работать с вашими клиентами.</p></div></div>
   <dialog aria-labelledby="ak-title"><div class="shell"><header><span class="mark" aria-hidden="true">AK</span><div class="heading"><h2 id="ak-title">Помощник ANNA KAM</h2><p>Спросите. Попробуйте. Представьте у себя.</p></div><button class="icon reset" aria-label="Начать новый разговор" title="Начать заново">↺</button><button class="icon close" aria-label="Закрыть чат">×</button></header><p class="notice">Подключаем помощника…</p><div class="scroll"><div class="messages" role="log" aria-label="Разговор с помощником" aria-live="polite" aria-relevant="additions"></div><div class="suggestions" aria-label="Примеры вопросов"></div><p class="status" role="status"></p>
@@ -145,5 +161,11 @@
     }catch{status('Не удалось очистить разговор на сервере. Попробуйте ещё раз.');}
     finally{setBusy(false);input.focus();}
   });
+
+  // Compact business introduction throughout the catalog; keep the homepage sphere.
+  if(/\/catalog(?:\/|$)/.test(location.pathname)){
+    host.dataset.layout='catalog';
+    shadow.querySelector('.holo-description').innerHTML='<p class="business-kicker">Помощник для вашего бизнеса</p><h2 class="business-title">Не упускайте клиента,<br>когда команда занята.</h2><p>Внедрим на ваш сайт помощника, который отвечает на частые вопросы по материалам компании, знакомит с услугами и помогает клиенту подготовить обращение менеджеру. Он может встретить посетителя вечером, в выходной или во время высокой нагрузки.</p><div class="business-steps"><span>01 · Изучим ваш бизнес</span><span>02 · Настроим сценарии и материалы</span><span>03 · Проверим и подключим</span></div><p class="business-note">Состав функций и подключения согласуем под вашу задачу. Сложные вопросы, стоимость и окончательные условия сделки подтверждает человек. Нажмите на шар, чтобы попробовать демонстрацию.</p>';
+  }
   greeting();
 })();
