@@ -10,7 +10,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let paused = reduced.matches, visible = false, hovering = false, focused = false;
   let yaw = .24, pitch = -.17, time = 0, velocity = 0, drag = null, suppressClick = false;
-  let width = 0, height = 0, radius = 0, cardWidth = 0, raf = 0, last = 0;
+  let width = 0, height = 0, radius = 0, verticalRadius = 0, cardWidth = 0, raf = 0, last = 0;
   // Separate tilted orbital planes. Cards remain facing the visitor for legibility.
   function point(ring, angle) {
     const tilt = [-.66, .62, 1.54][ring];
@@ -30,7 +30,8 @@
     // Allow for the front card's scale and the shadow; keep previews inside the stage.
     const baseWidth = parseFloat(getComputedStyle(items[0]).width);
     cardWidth = baseWidth || cardWidth;
-    radius = Math.max(35, Math.min((width - cardWidth * 1.35 - 12) / 2, (height - 160) / 1.65, 255));
+    radius = Math.max(35, (width - cardWidth * 1.42 - 24) / 2);
+    verticalRadius = Math.max(35, Math.min(radius, (height - cardWidth * 1.2 - 60) / 1.8));
     request();
   }
   function draw() {
@@ -42,12 +43,12 @@
       const [x,y,z] = project(pos);
       const selected = links[i] === document.activeElement || links[i].matches(':hover');
       const scale = (1 + z * .22) * (selected ? 1.12 : 1);
-      item.style.transform = `translate(-50%,-50%) translate(${(x*radius).toFixed(2)}px,${(y*radius*.97).toFixed(2)}px) scale(${scale.toFixed(3)}) rotate(${(x*-3).toFixed(2)}deg)`;
+      item.style.transform = `translate(-50%,-50%) translate(${(x*radius).toFixed(2)}px,${(y*verticalRadius*.97).toFixed(2)}px) scale(${scale.toFixed(3)}) rotate(${(x*-3).toFixed(2)}deg)`;
       item.style.zIndex = selected ? '100' : String(Math.round((z+2)*20));
       item.style.opacity = selected ? '1' : String(.79 + z*.16);
     });
     // SVG paths follow exactly the same 3D projection as the cards.
-    const sx = radius / width * 800, sy = radius * .97 / height * 600;
+    const sx = radius / width * 800, sy = verticalRadius * .97 / height * 600;
     paths.forEach((path, ring) => {
       let d = '';
       for (let j = 0; j <= 96; j++) {
