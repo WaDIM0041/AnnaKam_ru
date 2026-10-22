@@ -8,7 +8,7 @@
   const paths = [...root.querySelectorAll('[data-orbit-path]')];
   const pause = root.querySelector('[data-orbits-pause]');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  let paused = reduced.matches, visible = false, hovering = false, focused = false;
+  let paused = reduced.matches, visible = false, focused = false;
   let yaw = .24, pitch = -.17, time = 0, velocity = 0, drag = null, suppressClick = false;
   let width = 0, height = 0, radius = 0, verticalRadius = 0, cardWidth = 0, raf = 0, last = 0;
   // Separate tilted orbital planes. Cards remain facing the visitor for legibility.
@@ -62,13 +62,13 @@
     raf = 0;
     const dt = last ? Math.min((now-last)/1000, .04) : 0;
     last = now;
-    if (!paused && !hovering && !focused && !drag) { time += dt; yaw += dt*.045; }
-    if (!drag && !hovering && !focused && Math.abs(velocity) > .0001) {
+    if (!paused && !focused && !drag) { time += dt; yaw += dt*.045; }
+    if (!drag && !focused && Math.abs(velocity) > .0001) {
       yaw += velocity * dt * 60;
       velocity *= Math.pow(.91,dt*60);
     }
     draw();
-    if ((!paused && !hovering && !focused) || drag || Math.abs(velocity)>.0001) request();
+    if ((!paused && !focused) || drag || Math.abs(velocity)>.0001) request();
   }
   function pauseUI() {
     pause.setAttribute('aria-pressed',String(paused));
@@ -81,7 +81,7 @@
   stage.addEventListener('pointerdown',e => {
     if (!e.isPrimary || (e.pointerType==='mouse' && e.button!==0)) return;
     drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,x:e.clientX,y:e.clientY,active:false,touch:e.pointerType==='touch'};
-    suppressClick=false; velocity=0;
+    suppressClick=false; velocity=0;focused=false;request();
   });
   stage.addEventListener('pointermove',e => {
     if (!drag || drag.id!==e.pointerId) return;
@@ -109,6 +109,7 @@
   stage.addEventListener('click',e=>{if(suppressClick){e.preventDefault();e.stopPropagation();suppressClick=false;}},true);
   stage.addEventListener('dragstart',e=>e.preventDefault());
   stage.addEventListener('keydown',e=>{
+    focused=true;
     if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(e.key)) return;
     e.preventDefault();velocity=0;
     if(e.key==='Home'){yaw=.24;pitch=-.17;}
@@ -116,11 +117,13 @@
     if(e.key==='ArrowUp')pitch=Math.max(-.85,pitch-.12);if(e.key==='ArrowDown')pitch=Math.min(.85,pitch+.12);
     request();
   });
-  stage.addEventListener('focusin',()=>{focused=true;velocity=0;request();});
+  // Pointer focus must not pin the whole collection after clicking or dragging.
+  // Keep a deliberate pause only for visible keyboard focus.
+  stage.addEventListener('focusin',e=>{focused=e.target.matches(':focus-visible');velocity=0;request();});
   stage.addEventListener('focusout',e=>{if(!stage.contains(e.relatedTarget)){focused=false;last=0;}request();});
   links.forEach(link=>{
-    link.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hovering=true;velocity=0;request();}});
-    link.addEventListener('pointerleave',()=>{hovering=false;last=0;request();});
+    link.addEventListener('pointerenter',()=>request());
+    link.addEventListener('pointerleave',()=>request());
   });
   document.addEventListener('visibilitychange',()=>{last=0;if(document.hidden){cancelAnimationFrame(raf);raf=0;}else request();});
   root.classList.add('is-interactive');pause.hidden=false;pauseUI();

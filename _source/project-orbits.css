@@ -1,4 +1,6 @@
-/* Intentionally scoped: the collection does not change the rest of the site. */
+/* Scoped home-page collection and service-card link accents. */
+.growth-grid [data-service-card] .text-link{color:var(--hover-color,var(--green));text-decoration-color:currentColor}
+.growth-grid [data-service-card] .text-link:focus-visible{outline-color:var(--hover-color,var(--green))}
 .offer-hero-with-orbits{grid-template-columns:minmax(0,1fr);min-height:auto;padding-bottom:40px}
 .offer-hero-with-orbits .hero-copy{max-width:900px}
 .project-orbits{min-width:0;width:100%;position:relative;isolation:isolate;padding:40px clamp(18px,4.5vw,96px) 28px;color:#e6e3dc;border-block:1px solid #d7bd941a;overflow:clip;scroll-margin-top:100px}
