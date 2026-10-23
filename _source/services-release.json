@@ -1,0 +1,14 @@
+{
+  "files": [
+    "index.html",
+    "assets/catalog-services-2027ed991524.css",
+    "assets/catalog-app-cdc8a542d919.js",
+    "_source/services.mjs",
+    "_source/services.css",
+    "_source/offer.mjs",
+    "_source/app.js",
+    "_source/build.mjs",
+    "_source/build-services.mjs"
+  ],
+  "published": false
+}

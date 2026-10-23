@@ -3,6 +3,29 @@
  const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
  document.documentElement.dataset.enhanced='true';
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ // Replay the emblem entrance whenever it comes back into view.
+ document.documentElement.classList.add('identity-motion-ready');
+ const emblems=$$('.identity-logo'),visibleEmblems=new Set(),emblemAnimations=new Map();
+ function stopEmblem(logo){emblemAnimations.get(logo)?.cancel();emblemAnimations.delete(logo);}
+ function turnEmblem(logo){
+  stopEmblem(logo);
+  if(reduced.matches||document.hidden)return;
+  const opacity=getComputedStyle(logo).opacity;
+  const animation=logo.animate([{transform:'rotate(-90deg)',opacity:.15},{transform:'rotate(0deg)',opacity}],{duration:1500,easing:'cubic-bezier(.16,1,.3,1)'});
+  emblemAnimations.set(logo,animation);
+  animation.onfinish=()=>{if(emblemAnimations.get(logo)===animation)emblemAnimations.delete(logo);};
+ }
+ if('IntersectionObserver' in window){
+  const emblemObserver=new IntersectionObserver(entries=>{
+   for(const entry of entries){
+    if(entry.isIntersecting&&entry.intersectionRatio>=.35){if(!visibleEmblems.has(entry.target)){visibleEmblems.add(entry.target);turnEmblem(entry.target);}}
+    else{visibleEmblems.delete(entry.target);stopEmblem(entry.target);}
+   }
+  },{threshold:[0,.35]});
+  emblems.forEach(logo=>emblemObserver.observe(logo));
+ }
+ document.addEventListener('visibilitychange',()=>visibleEmblems.forEach(logo=>document.hidden?stopEmblem(logo):turnEmblem(logo)));
+ reduced.addEventListener('change',()=>visibleEmblems.forEach(logo=>reduced.matches?stopEmblem(logo):turnEmblem(logo)));
  // Navigation remains available in HTML when JavaScript is disabled.
  const toggle=$('[data-menu-toggle]'),nav=$('[data-nav]'),mobile=matchMedia('(max-width:700px)');
  let menuOpen=false;
@@ -41,12 +64,28 @@
  // Browser-local draft: no request is sent, no success message claims otherwise.
  const form=$('[data-request-form]');
  if(form){
+  function updateRequestMode(){
+   const standalone=$('[name="solution"]',form).value==='Без заказа сайта';
+   const license=$('[name="license"]',form);license.disabled=standalone;license.closest('.field').hidden=standalone;
+   const collaboration=$('[name="collaboration"]',form);
+   if(standalone)collaboration.value='service-only';
+   else if(collaboration.value==='service-only')collaboration.value='decide';
+  }
+  $('[name="solution"]',form).addEventListener('change',updateRequestMode);
   function selectRequestedSolution(){
    const params=new URLSearchParams(location.search),solution=params.get('solution'),license=params.get('license'),service=params.get('service');
    if(solution&&$$('[name="solution"] option',form).some(o=>o.value===solution))$('[name="solution"]',form).value=solution;
-   if(license&&['adaptation','exclusive'].includes(license))$('[name="license"]',form).value=license;
+   if(license&&['adaptation','exclusive','custom'].includes(license))$('[name="license"]',form).value=license;
    const requestedService=$$('[name="services"]',form).find(input=>input.value===service);
-   if(requestedService)requestedService.checked=true;
+   if(requestedService){
+    requestedService.checked=true;
+    if(!solution&&['rebranding','socials','visuals','engineering','domrf'].includes(service)){
+     $('[name="solution"]',form).value='Без заказа сайта';
+     $('[name="collaboration"]',form).value='service-only';
+    }
+    if(service==='development'&&!license)$('[name="license"]',form).value='custom';
+   }
+   updateRequestMode();
   }
   selectRequestedSolution();
   // Apply after browser form-state restoration as well as initial script startup.
@@ -56,7 +95,10 @@
    const data=new FormData(form);
    const services=$$('[name="services"]:checked',form).map(input=>input.closest('label').querySelector('span').textContent.trim());
    const collaboration=$('[name="collaboration"]',form).selectedOptions[0].textContent;
-   const text=`Здравствуйте! Хочу обсудить сайт и задачи бизнеса через ANNA KAM.\n\nРешение: ${data.get('solution')}.\nФормат: ${data.get('license')==='exclusive'?'обсудить эксклюзив':'адаптация готового решения'}.\nМой бюджет на адаптацию и запуск: ${String(data.get('budget')||'').trim()||'бюджет пока не определён'}.\nБизнес: ${String(data.get('business')||'').trim()||'уточню в диалоге'}.\nЧто нужно: ${String(data.get('needs')||'').trim()||'помощь с выбором состава'}.\nДальнейшая работа: ${collaboration}.\nИнтересующие направления: ${services.length?services.join(', '):'пока не выбраны'}.\n\nДавайте согласуем возможный состав, итоговую стоимость и условия запуска. Сопровождение, рекламный бюджет и платные сервисы обсудим отдельно.`;
+   const standalone=data.get('solution')==='Без заказа сайта';
+   const site=standalone?'Формат обращения: отдельная услуга без заказа сайта.':`Решение: ${data.get('solution')}.\nФормат сайта: ${({exclusive:'обсудить эксклюзив',custom:'индивидуальная разработка сайта',adaptation:'адаптация готового решения'})[data.get('license')]||'обсудим'}.`;
+   const text=`Здравствуйте! Хочу обсудить задачу с ANNA KAM.\n\n${site}\nМой бюджет: ${String(data.get('budget')||'').trim()||'пока не определён'}.\nБизнес: ${String(data.get('business')||'').trim()||'уточню в диалоге'}.\nЧто нужно: ${String(data.get('needs')||'').trim()||'помощь с выбором состава'}.\nФормат сотрудничества: ${collaboration}.\nИнтересующие направления: ${services.length?services.join(', '):'пока не выбраны'}.\n\nДавайте согласуем состав, сроки и стоимость работы.`;
+
    const panel=$('[data-message-panel]'),message=$('[data-message]');panel.hidden=false;message.value=text;
    $('[data-request-status]').textContent='Сообщение подготовлено, но ещё не отправлено. Скопируйте его и отправьте в выбранный диалог.';
    message.focus();if(!reduced.matches)panel.scrollIntoView({behavior:'smooth',block:'nearest'});

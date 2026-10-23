@@ -64,8 +64,8 @@
     last = now;
     if (!paused && !focused && !drag) { time += dt; yaw += dt*.045; }
     if (!drag && !focused && Math.abs(velocity) > .0001) {
-      yaw += velocity * dt * 60;
-      velocity *= Math.pow(.91,dt*60);
+      yaw += velocity * dt;
+      velocity *= Math.pow(.94,dt*60);
     }
     draw();
     if ((!paused && !focused) || drag || Math.abs(velocity)>.0001) request();
@@ -80,20 +80,23 @@
   reduced.addEventListener('change',() => {paused=reduced.matches;velocity=0;pauseUI();request();});
   stage.addEventListener('pointerdown',e => {
     if (!e.isPrimary || (e.pointerType==='mouse' && e.button!==0)) return;
-    drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,x:e.clientX,y:e.clientY,active:false,touch:e.pointerType==='touch'};
+    drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,x:e.clientX,y:e.clientY,lastTime:e.timeStamp,active:false,touch:e.pointerType==='touch'};
     suppressClick=false; velocity=0;focused=false;request();
   });
   stage.addEventListener('pointermove',e => {
     if (!drag || drag.id!==e.pointerId) return;
     const distanceX=e.clientX-drag.startX, distanceY=e.clientY-drag.startY;
-    if (!drag.active && Math.hypot(distanceX,distanceY)<7) return;
-    if (!drag.active && drag.touch && Math.abs(distanceY)>Math.abs(distanceX)) {drag=null;return;}
+    if (!drag.active && Math.hypot(distanceX,distanceY)<(drag.touch?4:7)) return;
+    if (!drag.active && drag.touch && Math.abs(distanceY)>Math.abs(distanceX)*1.3) {drag=null;return;}
     if (!drag.active) {drag.active=true;suppressClick=true;stage.setPointerCapture(e.pointerId);stage.classList.add('is-dragging');}
     const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
-    yaw+=dx*.007;
+    // A swipe across the stage turns a full orbit, independently of screen size.
+    const turn=dx*(drag.touch ? Math.PI*2/Math.max(width,240) : .007);
+    yaw+=turn;
     if (!drag.touch) pitch=Math.max(-.85,Math.min(.85,pitch+dy*.004));
-    velocity=paused||reduced.matches ? 0 : dx*.002;
-    drag.x=e.clientX;drag.y=e.clientY;request();
+    const elapsed=Math.max(8,Math.min(50,e.timeStamp-drag.lastTime))/1000;
+    velocity=paused||reduced.matches ? 0 : Math.max(-8,Math.min(8,velocity*.4+turn/elapsed*.6));
+    drag.x=e.clientX;drag.y=e.clientY;drag.lastTime=e.timeStamp;request();
   });
   function endDrag(e) {
     if (!drag || (e && e.pointerId!==drag.id)) return;
