@@ -1,0 +1,14 @@
+/* The viewport observer replaces the one-off page-load animation. */
+.identity-motion-ready .identity-logo{transform-origin:50% 50%;transform-box:view-box}
+.identity-motion-ready .identity-logo-hero{animation:none}
+/* Give the offer emblem its own space beside the copy. */
+@media(min-width:1001px){
+ .offer-hero.offer-hero-with-orbits .hero-copy{max-width:none;padding-right:230px}
+ .offer-hero .hero-identity{position:absolute;right:65px;top:45%;margin:0;transform:translateY(-50%)}
+ .offer-hero .hero-identity .identity-logo-hero{width:110px;height:110px}
+}
+@media(min-width:701px) and (max-width:1000px){
+ .offer-hero.offer-hero-with-orbits .hero-copy{max-width:none;padding-right:150px}
+ .offer-hero .hero-identity{position:absolute;right:20px;top:45%;margin:0;transform:translateY(-50%)}
+}
+@media(max-width:700px){.offer-hero .hero-identity{justify-content:center}}
