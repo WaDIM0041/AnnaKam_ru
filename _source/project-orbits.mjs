@@ -26,8 +26,9 @@ export function integrateProjectOrbits(html, projects, assets) {
     if (!previous.test(html)) throw Error('Home gallery insertion point missing');
     html = html.replace(previous, '');
   }
-  const insertion='<section class="section" id="catalog">';
-  if(!html.includes(insertion))throw Error('Full-width gallery insertion point missing');
+  // Коллекция показывается после блока каталога и кнопки «Все решения».
+  const insertion='<section class="section feature-band">';
+  if(!html.includes(insertion))throw Error('Catalog end insertion point missing');
   html=html.replace(insertion,collection+insertion);
   html=html.replace('class="hero offer-hero"','class="hero offer-hero offer-hero-with-orbits"');
   html = html.replace(/<link[^>]*data-project-orbits-css[^>]*>/g, '').replace(/<script[^>]*data-project-orbits-script[^>]*><\/script>/g, '');
