@@ -54,6 +54,13 @@ ErrorDocument 404 /404.html
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 </IfModule>
 
+# HTML and route payloads must be revalidated so published updates appear immediately.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|txt)$">
+        Header always set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
 # Enable .webp and other static types
 <IfModule mod_mime.c>
     AddType image/webp .webp
