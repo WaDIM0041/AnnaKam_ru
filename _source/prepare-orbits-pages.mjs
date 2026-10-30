@@ -10,7 +10,7 @@ const target=path.resolve(process.argv[2]);
 if(execFileSync('git',['branch','--show-current'],{cwd:target,encoding:'utf8'}).trim()!=='gh-pages')throw Error('Target must be the gh-pages checkout');
 const release=JSON.parse(fs.readFileSync(path.join(source,'orbits-release.json'),'utf8'));
 const products=JSON.parse(fs.readFileSync(path.join(source,'products.json'),'utf8'));
-const personal={slug:'k-zvezdam',name:'Через время к звёздам',kind:'Сайт романа',personal:true,image:'/portfolio/k-zvezdam.webp',demo:'https://k-zvezdam.ru'};
+const personal={slug:'k-zvezdam',name:'Через время к звёздам',kind:'Сайт романа',personal:true,image:'/portfolio/k-zvezdam.webp',demo:'https://kzvezdam.annakam.ru/'};
 const prefix='/AnnaKam_ru';
 const projects=[...products.slice(0,3),personal,...products.slice(3)].map(p=>({...p,image:prefix+p.image}));
 const assets={};
