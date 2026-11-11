@@ -51,3 +51,12 @@
 .offer-hero .offer-title{margin:0;font-size:clamp(62px,6.4vw,94px);font-weight:650;line-height:1.04;letter-spacing:-.055em;background:linear-gradient(120deg,#40edb3,#00d5d8 65%,#58b7fb);background-clip:text;-webkit-background-clip:text;color:transparent;text-wrap:balance}.offer-hero{margin-top:20px}.offer-hero .hero-identity{justify-content:flex-start}.offer-hero .identity-directions{justify-content:flex-start}
 @media(max-width:1100px){.offer-hero .offer-title{font-size:clamp(52px,6.4vw,72px)}}
 @media(max-width:700px){.offer-hero .offer-title{font-size:clamp(46px,10vw,68px)}}
+
+/* Center the final featured project while matching the grid's 28px column gap. */
+@media (width > 700px) {
+  #catalog .product-grid > [data-record-id="personal-specialist-na-chas"]:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    inline-size: calc((100% - 28px) / 2);
+  }
+}
