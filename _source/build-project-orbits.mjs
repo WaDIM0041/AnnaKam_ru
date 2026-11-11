@@ -4,10 +4,10 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {integrateProjectOrbits} from './project-orbits.mjs';
+import {collectProjects} from './project-collection.mjs';
 const source=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(source,'..');
 const products=JSON.parse(fs.readFileSync(path.join(source,'products.json'),'utf8'));
-const personal={slug:'k-zvezdam',name:'Через время к звёздам',kind:'Сайт романа',image:'/portfolio/k-zvezdam.webp',demo:'https://kzvezdam.annakam.ru/',personal:true};
-const projects=[...products.slice(0,3),personal,...products.slice(3)];
+const {all:projects}=collectProjects(products);
 const assets={};
 for(const ext of ['css','js']){
   const data=fs.readFileSync(path.join(source,`project-orbits.${ext}`));

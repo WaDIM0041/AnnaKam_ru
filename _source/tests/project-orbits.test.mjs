@@ -2,13 +2,14 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {projectOrbits,integrateProjectOrbits} from '../project-orbits.mjs';
+import {collectProjects} from '../project-collection.mjs';
 const products=JSON.parse(fs.readFileSync(new URL('../products.json',import.meta.url),'utf8'));
-const personal={slug:'k-zvezdam',name:'Через время к звёздам',kind:'Сайт романа',personal:true,image:'/portfolio/k-zvezdam.webp',demo:'https://kzvezdam.annakam.ru/'};
-const records=[...products,personal];
+const {all:records}=collectProjects(products);
+const personal=records.find(p=>p.slug==='k-zvezdam');
 const assets={css:'/assets/orbits.css',js:'/assets/orbits.js'};
 test('every catalog record retains its real preview and destination',()=>{
  const html=projectOrbits(records);
- assert.equal((html.match(/data-project-slug=/g)||[]).length,12);
+ assert.equal((html.match(/data-project-slug=/g)||[]).length,records.length);
  for(const p of records){
   assert(html.includes(`data-project-slug="${p.slug}"`));
   assert(html.includes(`href="${p.demo}"`));
