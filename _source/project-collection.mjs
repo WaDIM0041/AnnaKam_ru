@@ -2,7 +2,7 @@ const novel={
   slug:'k-zvezdam',recordId:'personal-k-zvezdam',recordType:'personal',personal:true,
   name:'Через время к звёздам',category:'personal',categoryLabel:'Авторский проект',kind:'Сайт романа',
   description:'Авторский роман и отдельная визуальная история. Творческий проект, не шаблон для продажи.',
-  image:'/portfolio/k-zvezdam.webp',demo:'https://kzvezdam.annakam.ru/'
+  image:'/portfolio/k-zvezdam-current.jpg',demo:'https://kzvezdam.annakam.ru/'
 };
 
 const specialist={
@@ -13,7 +13,11 @@ const specialist={
   alt:'Первый экран сайта «Специалист на час»',caption:'Портфолио специалиста'
 };
 
+const artBalkonSlug='art-elit-balkon';
+
 export function collectProjects(products){
-  const featured=[...products.slice(0,3),novel,specialist];
-  return {featured,all:[...featured,...products.slice(3)]};
+  const artBalkon=products.find(project=>project.slug===artBalkonSlug);
+  const featured=[...products.slice(0,3),novel,...(artBalkon?[artBalkon]:[]),specialist];
+  const featuredSlugs=new Set(featured.map(project=>project.slug));
+  return {featured,all:[...featured,...products.filter(project=>!featuredSlugs.has(project.slug))]};
 }

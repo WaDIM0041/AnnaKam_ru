@@ -26,6 +26,13 @@
  }
  document.addEventListener('visibilitychange',()=>visibleEmblems.forEach(logo=>document.hidden?stopEmblem(logo):turnEmblem(logo)));
  reduced.addEventListener('change',()=>visibleEmblems.forEach(logo=>reduced.matches?stopEmblem(logo):turnEmblem(logo)));
+ const offerEmblem=$('.offer-hero .identity-logo-hero');
+ if(offerEmblem) window.setInterval(()=>{
+  if(document.hidden||reduced.matches||!visibleEmblems.has(offerEmblem)||emblemAnimations.has(offerEmblem))return;
+  const animation=offerEmblem.animate([{transform:'perspective(360px) rotateY(0deg)'},{transform:'perspective(360px) rotateY(360deg)'}],{duration:1250,easing:'cubic-bezier(.4,0,.2,1)'});
+  emblemAnimations.set(offerEmblem,animation);
+  animation.onfinish=()=>{if(emblemAnimations.get(offerEmblem)===animation)emblemAnimations.delete(offerEmblem);};
+ },7800);
  // Navigation remains available in HTML when JavaScript is disabled.
  const toggle=$('[data-menu-toggle]'),nav=$('[data-nav]'),mobile=matchMedia('(max-width:700px)');
  let menuOpen=false;
