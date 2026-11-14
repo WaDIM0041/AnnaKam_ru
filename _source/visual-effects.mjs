@@ -1,7 +1,7 @@
 const networks=[
  {id:'vk',name:'ВКонтакте',url:'https://vk.ru/vadikompany',caption:'Новости и анонсы',path:'<path d="M3 7h3.5c.4 3.3 1.7 5.3 2.8 6V7h3.3v3.5c1.1-.1 2.5-1.8 2.9-3.5h3.4c-.4 2.1-2.1 4-3.2 4.8 1.1.7 3.2 2.4 4 5.2h-3.7c-.6-1.7-1.9-3-3.4-3.2V17h-.4C6.4 17 3.5 13.5 3 7Z" fill="currentColor" stroke="none"/>'},
  {id:'instagram',name:'Instagram',url:'https://instagram.com/anna_kamchatka_0041',caption:'Визуальный контент',path:'<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/>'},
- {id:'telegram',name:'Telegram',url:'https://t.me/anna_kamchatka',caption:'Оперативные обновления',path:'<path d="m3 10 18-7-4 18-6-5-4 3v-6l10-6-7 8Z" stroke-linejoin="round"/>'}
+ {id:'telegram',name:'Telegram',url:'https://t.me/Wadim_8884',caption:'Оперативные обновления',path:'<path d="m3 10 18-7-4 18-6-5-4 3v-6l10-6-7 8Z" stroke-linejoin="round"/>'}
 ];
 const icon=n=>`<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${n.path}</svg>`;
 const external='target="_blank" rel="noopener noreferrer"';

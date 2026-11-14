@@ -175,7 +175,7 @@ function anna_bot_run(string $action, ?callable $transport = null): never {
             anna_bot_json(200, [
                 'mode' => $config['mode'], 'provider' => $config['mode'] === 'live' ? ($config['provider'] === 'yandex' ? 'Yandex AI Studio' : 'OpenAI') : null,
                 'demoTransport' => 'browser', 'historyStorage' => $config['mode'] === 'live' ? 'private-sqlite' : 'browser',
-                'telegram' => 'https://t.me/anna_kamchatka',
+                'telegram' => 'https://t.me/Wadim_8884',
             ]);
         }
         if (!in_array($action, ['chat', 'reset'], true)) anna_bot_json(404, ['error' => 'Не найдено.']);

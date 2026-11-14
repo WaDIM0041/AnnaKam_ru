@@ -16,7 +16,7 @@ export function studioHome(body, projects, emblem) {
   catalog = catalog.replace(/<section class="section services-section"[\s\S]*?<\/section>/, '');
   const contact = body.slice(contactStart)
     .replace('<div class="contact-copy">', `<div class="contact-copy">${link('Обсудить задачу', telegram)}`)
-    .replaceAll('https://t.me/anna_kamchatka', telegram);
+    .replaceAll('https://t.me/Wadim_8884', telegram);
   const services = [
     ['Создание и доработка сайтов', 'От структуры и дизайна до запуска. Доработка, редизайн и адаптация готовых решений.'],
     ['ИИ, чат-боты и автоматизация', 'Помощники, Telegram-боты и связи между сервисами для повседневных задач бизнеса.'],
