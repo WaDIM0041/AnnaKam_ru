@@ -27,7 +27,7 @@
  document.addEventListener('visibilitychange',()=>visibleEmblems.forEach(logo=>document.hidden?stopEmblem(logo):turnEmblem(logo)));
  reduced.addEventListener('change',()=>visibleEmblems.forEach(logo=>reduced.matches?stopEmblem(logo):turnEmblem(logo)));
  const offerEmblem=$('.offer-hero .identity-logo-hero');
- if(offerEmblem) window.setInterval(()=>{
+ if(offerEmblem && !offerEmblem.closest('[data-studio-emblem]')) window.setInterval(()=>{
   if(document.hidden||reduced.matches||!visibleEmblems.has(offerEmblem)||emblemAnimations.has(offerEmblem))return;
   const animation=offerEmblem.animate([{transform:'perspective(360px) rotateY(0deg)'},{transform:'perspective(360px) rotateY(360deg)'}],{duration:1250,easing:'cubic-bezier(.4,0,.2,1)'});
   emblemAnimations.set(offerEmblem,animation);

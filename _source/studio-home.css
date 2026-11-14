@@ -40,3 +40,64 @@
 @media(max-width:900px){.studio-home .services-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.studio-hero{grid-template-columns:1fr;min-height:auto}.studio-hero-art{padding:12px 0 24px}.studio-emblem{width:150px}.studio-house,.studio-music{grid-template-columns:1fr}.studio-record{width:240px}}
 @media(max-width:560px){.studio-home .services-grid{grid-template-columns:1fr}.studio-hero{padding-top:26px;gap:24px}.studio-hero .hero-copy{padding:24px 20px}.studio-hero h1{font-size:clamp(34px,9vw,48px)}.studio-home .hero-actions{align-items:stretch}.studio-home .hero-actions .button{white-space:normal;text-align:center}.studio-house,.studio-music{padding:24px 20px}.studio-home .service-card{padding:24px}.studio-record{width:210px}}
 @media(prefers-reduced-motion:reduce){.studio-emblem .identity-logo{animation:none}.studio-record{transition:none}}
+.studio-emblem{display:block;padding:0;border:0;background:transparent;cursor:pointer;color:inherit}
+.studio-emblem:focus-visible{outline:2px solid #7ce0cf;outline-offset:8px;border-radius:12px}
+.studio-emblem .identity-logo{animation:none}
+.studio-record{animation:studio-record-spin 18s linear infinite}
+.studio-record:hover{animation-play-state:paused}
+@keyframes studio-record-spin{to{transform:rotate(360deg)}}
+.studio-video{position:relative;aspect-ratio:16/9;overflow:hidden;border:1px solid #90bbb45c;border-radius:16px;background:#081719}
+.studio-video video{width:100%;height:100%;object-fit:cover;display:block}
+.studio-video-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;background:rgba(4,19,22,.88);opacity:1;transition:opacity 1s;pointer-events:none}
+.studio-video-copy h3{margin:0 0 12px}.studio-video-copy p{margin:0;color:#d3e4df;font-size:14px;line-height:1.5}
+.studio-video.is-playing .studio-video-copy{opacity:0}
+@media(prefers-reduced-motion:reduce){.studio-record{animation:none}.studio-video-copy{transition:none}}
+.studio-video.is-revealing [data-video-title] span{display:inline-block;white-space:pre;animation:house-letter-in .45s backwards;animation-delay:calc(var(--letter-index) * 35ms)}
+@keyframes house-letter-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.studio-video.is-revealing [data-video-title] span{animation:none}}
+.studio-contact-grid{margin-top:20px}
+.studio-contact-grid .social-card{width:100%;font:inherit;cursor:pointer}
+.studio-contact-grid .social-max{--social:#a88bff;--social-tint:#211b36;--social-border:#a88bff55}
+.studio-contact-grid .social-phone{--social:#68e2ba;--social-tint:#102a24;--social-border:#68e2ba55}
+.studio-contact-grid .social-mail{--social:#ffc777;--social-tint:#302719;--social-border:#ffc77755;cursor:pointer}
+/* Компактные карточки связи на главной странице. */
+.studio-home .social-section .social-grid{gap:20px}
+.studio-home .social-section .studio-contact-grid{margin-top:20px}
+.studio-home .social-section .social-card{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:126px;height:100%;padding:14px 12px;text-align:center;border-radius:14px}
+.studio-home .social-section .social-icon{width:36px;height:36px;margin:0 0 8px;border-radius:10px}
+.studio-home .social-section .social-icon svg{width:21px;height:21px}
+.studio-home .social-section .social-name{font-size:16px;line-height:1.2}
+.studio-home .social-section .social-caption{font-size:12px;line-height:1.3;margin-top:4px}
+@media(max-width:700px){.studio-home .social-section .social-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.studio-home .social-section .social-card{min-height:120px;padding:12px 8px}.studio-home .social-section .social-name{font-size:15px}.studio-home .social-section .social-caption{font-size:11px}}
+@media(max-width:360px){.studio-home .social-section .social-grid{grid-template-columns:1fr}.studio-home .social-section .social-card{min-height:100px}}
+
+/* Последовательный мягкий импульс карточек связи. */
+.studio-home .social-section .social-card{animation:contact-pulse 9s ease-in-out infinite;animation-delay:var(--contact-pulse-delay,0s)}
+.studio-home .social-section .social-grid:not(.studio-contact-grid) .social-card:nth-child(1){--contact-pulse-delay:0s}
+.studio-home .social-section .social-grid:not(.studio-contact-grid) .social-card:nth-child(2){--contact-pulse-delay:.65s}
+.studio-home .social-section .social-grid:not(.studio-contact-grid) .social-card:nth-child(3){--contact-pulse-delay:1.3s}
+.studio-home .social-section .studio-contact-grid .social-card:nth-child(1){--contact-pulse-delay:1.95s}
+.studio-home .social-section .studio-contact-grid .social-card:nth-child(2){--contact-pulse-delay:2.6s}
+.studio-home .social-section .studio-contact-grid .social-card:nth-child(3){--contact-pulse-delay:3.25s}
+@keyframes contact-pulse{0%,12%,100%{transform:scale(1);box-shadow:0 8px 30px rgba(0,0,0,.3)}6%{transform:scale(1.025);box-shadow:0 0 22px color-mix(in srgb,var(--social) 30%,transparent)}}
+@media(prefers-reduced-motion:reduce){.studio-home .social-section .social-card{animation:none}}
+
+/* Оба ряда занимают одинаковую компактную ширину. */
+.studio-home .social-section .social-grid{width:min(100%,590px);margin-left:auto;margin-right:auto;grid-template-columns:repeat(3,minmax(0,1fr))}
+.studio-home .social-section .studio-contact-grid{margin-top:20px}
+@media(max-width:600px){.studio-home .social-section .social-grid{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:360px){.studio-home .social-section .social-grid{grid-template-columns:1fr}}
+.footer-socials .footer-contact-max{display:grid;place-items:center;width:48px;height:48px;border:1px solid #a88bff55;border-radius:12px;background:#a88bff10;color:#a88bff;font:inherit;font-size:20px;font-weight:700;cursor:pointer}
+.footer-socials .footer-contact-phone{--social:#68e2ba}
+.footer-socials .footer-contact-mail{--social:#ffc777}
+.footer-socials .footer-contact-max:hover{transform:translateY(-3px);box-shadow:0 0 24px #a88bff29}
+.footer-socials .footer-contact-max:focus-visible{outline:2px solid #a88bff;outline-offset:3px}
+@media(max-width:700px){.footer-socials .footer-contact-max{width:50px;height:50px}}
+
+.footer-socials [data-tooltip]{position:relative}
+.footer-socials [data-tooltip]::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 9px);left:50%;transform:translate(-50%,4px);padding:6px 9px;border:1px solid #a8ded12b;border-radius:7px;background:#10211f;color:#eafbf6;font-size:12px;font-weight:500;line-height:1.2;white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s;z-index:3}
+.footer-socials [data-tooltip]:is(:hover,:focus-visible)::after{opacity:1;visibility:visible;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){.footer-socials [data-tooltip]::after{transition:none}}
+.offer-emblem{display:block;padding:0;border:0;background:transparent;cursor:pointer;perspective:800px;color:inherit}
+.offer-emblem:focus-visible{outline:2px solid #7ce0cf;outline-offset:6px;border-radius:10px}
+.offer-emblem .identity-logo{animation:none;transform:none}

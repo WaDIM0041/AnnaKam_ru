@@ -39,11 +39,11 @@
 
 /* One coherent hover language across the catalog, process, terms and contacts. */
 .ak-hover-surface{position:relative;isolation:isolate;--hover-x:50%;--hover-y:50%;--hover-rx:0deg;--hover-ry:0deg;--hover-color:var(--green);transition:transform .32s ease,box-shadow .32s ease,border-color .32s ease,background-color .32s ease}
-/* Same five-second orbit as the original showcase, clipped to the outline
+/* Slow orbit along the outline, clipped to the outline
    instead of rotating a huge overflowing layer across the text. */
 @property --ak-orbit-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
 @keyframes ak-showcase-orbit{to{--ak-orbit-angle:360deg}}
-.ak-hover-surface::after{content:'';position:absolute;inset:-1px;pointer-events:none;padding:2px;border:0;border-radius:inherit;background:conic-gradient(from var(--ak-orbit-angle),transparent 0% 25%,color-mix(in srgb,var(--hover-color) 45%,transparent) 34%,var(--hover-color) 40%,color-mix(in srgb,var(--hover-color) 45%,transparent) 46%,transparent 55% 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity .7s ease;animation:ak-showcase-orbit 5s linear infinite paused;z-index:1}
+.ak-hover-surface::after{content:'';position:absolute;inset:-1px;pointer-events:none;padding:2px;border:0;border-radius:inherit;background:conic-gradient(from var(--ak-orbit-angle),transparent 0% 25%,color-mix(in srgb,var(--hover-color) 45%,transparent) 34%,var(--hover-color) 40%,color-mix(in srgb,var(--hover-color) 45%,transparent) 46%,transparent 55% 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity .7s ease;animation:ak-showcase-orbit 12s linear infinite paused;z-index:1}
 .ak-hover-surface:focus-within::after{opacity:1}
 .social-card.ak-hover-surface{--hover-color:var(--social)}
 .section-heading.ak-hover-surface,.hero-copy.ak-hover-surface,.catalog-tail.ak-hover-surface,.contact-copy.ak-hover-surface,.product-spec>div.ak-hover-surface,.product-hero>div.ak-hover-surface{border-radius:10px}
