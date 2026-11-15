@@ -30,6 +30,22 @@
 .studio-record span{width:42%;aspect-ratio:1;display:grid;place-content:center;text-align:center;border-radius:50%;background:linear-gradient(135deg,#7cb5ae,#8670ab);color:#081719;font-size:14px;letter-spacing:.1em}
 .studio-record b{font-size:40px}
 .studio-work p,.studio-work>h3{padding:0 16px}
+.winter-preview{position:relative;display:block;width:100%;aspect-ratio:8/5;overflow:hidden;border:0;border-radius:12px;padding:0;background:#10202a;cursor:pointer;color:#fff}
+.winter-preview img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.winter-preview:hover img{transform:scale(1.035)}
+.winter-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:60px;height:60px;border:1px solid #b6fff1;border-radius:50%;background:#061a20bb;color:#88ffdc;font-size:22px;box-shadow:0 0 32px #00ddaa44}
+.winter-caption{position:absolute;bottom:14px;right:14px;padding:7px 11px;border-radius:6px;background:#061a20dd;font-size:13px}
+.winter-actions{display:flex;flex-wrap:wrap;gap:20px;padding:0 16px 18px}
+.winter-actions button{border:0;padding:0;background:none;font:inherit;cursor:pointer}
+.winter-preview:focus-visible,.winter-actions button:focus-visible,.winter-close:focus-visible{outline:2px solid #61f7d3;outline-offset:3px}
+.winter-dialog{width:min(92vw,760px);max-height:90dvh;padding:20px;border:1px solid #3fae9b;border-radius:16px;background:#0b191c;color:#eaf9f5;box-shadow:0 20px 80px #000b}
+.winter-dialog::backdrop{background:#000c}
+.winter-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+.winter-dialog .winter-dialog-head h2{margin:0;font-size:clamp(20px,3vw,28px)}
+.winter-close{border:0;background:transparent;color:#fff;cursor:pointer;font-size:32px;line-height:1;padding:4px 10px}
+.winter-dialog video{display:block;width:100%;max-height:68dvh;aspect-ratio:1;object-fit:contain;background:#000}
+.winter-dialog p{margin:12px 0 0;padding:0;color:#b4c7c3}
+@media(prefers-reduced-motion:reduce){.winter-preview img{transition:none}}
 .studio-music-art{aspect-ratio:8/5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:radial-gradient(ellipse,#53406799,#122824 65%,#081312);color:#ecf8f2;text-decoration:none;text-align:center;padding:20px;border-radius:12px}
 .studio-music-art>span:first-child{font-size:64px;color:#92e5d3}
 .studio-music-art strong{font-size:clamp(22px,3vw,38px);line-height:1.15}

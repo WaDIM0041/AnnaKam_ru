@@ -1,4 +1,20 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const winterDialog = document.querySelector('#winter-dialog');
+if (winterDialog) {
+  const winterVideo = winterDialog.querySelector('video');
+  let winterOpener = null;
+  document.querySelectorAll('[data-winter-open]').forEach(button => button.addEventListener('click', () => {
+    winterOpener = button;
+    if (!winterVideo.getAttribute('src')) winterVideo.src = winterDialog.dataset.winterSrc;
+    winterDialog.showModal();
+    winterVideo.play().catch(() => {});
+  }));
+  winterDialog.querySelector('.winter-close').addEventListener('click', () => winterDialog.close());
+  winterDialog.addEventListener('close', () => {
+    winterVideo.pause();
+    winterOpener?.focus();
+  });
+}
 document.querySelectorAll('[data-studio-emblem]').forEach(emblem => {
 let emblemAnimations = [];
 let emblemTimer;
