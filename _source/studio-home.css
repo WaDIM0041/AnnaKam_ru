@@ -30,11 +30,14 @@
 .studio-record span{width:42%;aspect-ratio:1;display:grid;place-content:center;text-align:center;border-radius:50%;background:linear-gradient(135deg,#7cb5ae,#8670ab);color:#081719;font-size:14px;letter-spacing:.1em}
 .studio-record b{font-size:40px}
 .studio-work p,.studio-work>h3{padding:0 16px}
-.winter-preview{position:relative;display:block;width:100%;aspect-ratio:8/5;overflow:hidden;border:0;border-radius:12px;padding:0;background:#10202a;cursor:pointer;color:#fff}
+.winter-frame{position:relative}
+.winter-preview{display:block;width:100%;aspect-ratio:auto;padding:0;text-align:left;font:inherit;cursor:pointer;color:#fff}
 .winter-preview img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .winter-preview:hover img{transform:scale(1.035)}
 .winter-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:60px;height:60px;border:1px solid #b6fff1;border-radius:50%;background:#061a20bb;color:#88ffdc;font-size:22px;box-shadow:0 0 32px #00ddaa44}
 .winter-caption{position:absolute;bottom:14px;right:14px;padding:7px 11px;border-radius:6px;background:#061a20dd;font-size:13px}
+.winter-more{position:absolute;top:12px;right:12px;z-index:2;padding:7px 11px;border:1px solid #ffffff44;border-radius:6px;background:#061a20dd;color:#eaf9f5;font-size:13px;text-decoration:none}
+.winter-more:hover{color:#65f9d1;border-color:#65f9d1}
 .winter-actions{display:flex;flex-wrap:wrap;gap:20px;padding:0 16px 18px}
 .winter-actions button{border:0;padding:0;background:none;font:inherit;cursor:pointer}
 .winter-preview:focus-visible,.winter-actions button:focus-visible,.winter-close:focus-visible{outline:2px solid #61f7d3;outline-offset:3px}
