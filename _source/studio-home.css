@@ -6,6 +6,16 @@
 .studio-request[open] summary::after{content:"−"}
 .studio-request summary:focus-visible{outline:2px solid #7ce0cf;outline-offset:-4px}
 .studio-request .request-form{border:0;border-radius:0;padding-top:0}
+@supports (interpolate-size:allow-keywords){
+  .studio-request{interpolate-size:allow-keywords}
+  .studio-request::details-content{
+    block-size:0;
+    overflow:clip;
+    transition:block-size .45s ease,content-visibility .45s allow-discrete;
+  }
+  .studio-request[open]::details-content{block-size:auto}
+}
+@media(prefers-reduced-motion:reduce){.studio-request::details-content{transition:none}}
 .studio-hero{display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:clamp(24px,5vw,80px);padding:clamp(36px,6vw,90px) 0 56px;min-height:680px;background:linear-gradient(90deg,rgba(2,12,13,.88),rgba(2,12,13,.48)),url('../assets/studio-workspace-hero.webp') center/cover no-repeat;border-radius:22px}
 .studio-hero .hero-copy{padding:clamp(22px,3.4vw,48px);border:1px solid var(--studio-line);border-radius:22px;background:linear-gradient(130deg,#112c2b80,#10151c40);min-width:0}
 @media(min-width:901px){.studio-hero{align-items:center;min-height:0;padding-top:0;background-size:100% auto;background-position:center top;background-color:#031012}.studio-hero .hero-copy,.studio-hero-art{margin-top:clamp(300px,38vw,480px)}}
