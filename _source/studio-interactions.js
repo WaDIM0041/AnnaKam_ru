@@ -12,6 +12,7 @@ if (winterDialog) {
   winterDialog.querySelector('.winter-close').addEventListener('click', () => winterDialog.close());
   winterDialog.addEventListener('close', () => {
     winterVideo.pause();
+    winterVideo.currentTime = 0;
     winterOpener?.focus();
   });
 }
