@@ -37,6 +37,8 @@
 .studio-record span{width:42%;aspect-ratio:1;display:grid;place-content:center;text-align:center;border-radius:50%;background:linear-gradient(135deg,#7cb5ae,#8670ab);color:#081719;font-size:14px;letter-spacing:.1em}
 .studio-record b{font-size:40px}
 .studio-work p,.studio-work>h3{padding:0 16px}
+.studio-home #works .studio-work{min-width:0;padding:10px;border:1px solid rgba(165,221,213,.18);border-radius:14px;background:linear-gradient(145deg,rgba(35,60,61,.54),rgba(15,28,32,.72));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.045)}
+.studio-home #works .studio-work>p{margin:0;padding:15px 8px 10px;line-height:1.55;color:#d0dedb}
 .winter-frame{position:relative}
 .winter-preview{display:block;width:100%;aspect-ratio:auto;padding:0;text-align:left;font:inherit;cursor:pointer;color:#fff}
 .winter-preview img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
