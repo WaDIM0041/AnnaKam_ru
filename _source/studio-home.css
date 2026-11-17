@@ -313,6 +313,22 @@
 .offer-emblem:focus-visible{outline:2px solid #7ce0cf;outline-offset:6px;border-radius:10px}
 .offer-emblem .identity-logo{animation:none;transform:none}
 
+/* Фон первого экрана занимает всю ширину окна, а содержимое остаётся в сетке. */
+html:has(.studio-home),body:has(.studio-home){overflow-x:clip}
+.studio-home > .wrap:has(> .studio-hero){width:100%;max-width:none}
+.studio-hero{
+  padding-left:max(20px,calc((100% - 1180px) / 2));
+  padding-right:max(20px,calc((100% - 1180px) / 2));
+  border-radius:0;
+  background-size:100% auto;
+  background-position:center top;
+  background-color:#031012;
+}
+@media(max-width:700px){
+  .studio-hero{background-size:auto 420px;background-position:62% top}
+  .studio-hero h1 .studio-title-line{white-space:normal}
+}
+
 /* Компактный ряд связи: все карточки в одну строку на широком экране. */
 @media(min-width:1101px){
  .social-section .wrap{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
