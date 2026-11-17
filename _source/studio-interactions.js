@@ -46,7 +46,7 @@ if (emblem) {
   const outer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
   paths[0].before(outer);
   outer.append(paths[0], ...svg.querySelectorAll('circle'));
-  emblemParts = [outer, paths[1], svg.querySelector('text')];
+  emblemParts = [outer, paths[1], svg.querySelector('[data-identity-letters]')].filter(Boolean);
   emblemParts.forEach(part => {
     part.style.transformBox = 'view-box';
     part.style.transformOrigin = '50% 50%';

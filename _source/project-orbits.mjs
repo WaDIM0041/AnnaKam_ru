@@ -4,7 +4,7 @@ const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '
 export function projectOrbits(projects) {
   if (!projects.length || new Set(projects.map(p => p.slug)).size !== projects.length) throw Error('Invalid orbit collection');
   return `<section class="project-orbits" id="project-orbits" data-project-orbits aria-labelledby="orbits-title">
-    <div class="project-orbits-heading"><span class="project-orbits-dot" aria-hidden="true"></span><h2 id="orbits-title">На орбите ANNA KAM</h2><span class="project-orbits-count">${projects.length} проектов</span></div>
+    <div class="project-orbits-heading"><span class="project-orbits-dot" aria-hidden="true"></span><h2 id="orbits-title">На орбите <img class="annakam-orbit-mark" src="/assets/annakam-wordmark.svg" alt="annakam" width="424" height="100"></h2><span class="project-orbits-count">${projects.length} проектов</span></div>
     <p class="project-orbits-intro">Разные миры. Найдите свой.</p>
     <p class="project-orbits-help" id="orbits-help">Вращайте коллекцию. Нажмите на превью, чтобы открыть сайт.</p>
     <div class="project-orbits-stage" data-orbits-stage tabindex="0" role="group" aria-label="Объёмная коллекция проектов" aria-describedby="orbits-help orbits-keyboard">
