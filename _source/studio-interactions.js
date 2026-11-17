@@ -1,4 +1,23 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const footerHover = window.matchMedia('(any-hover: hover)');
+document.querySelectorAll('.footer-socials > :is(a, button)').forEach(control => {
+  const icon = control.querySelector(':scope > svg, :scope > span');
+  if (!icon) return;
+
+  let spin;
+  const play = () => {
+    if (reduceMotion.matches || spin?.playState === 'running') return;
+    spin = icon.animate(
+      [{ transform: 'perspective(140px) rotateY(0deg)' }, { transform: 'perspective(140px) rotateY(360deg)' }],
+      { duration: 620, easing: 'ease-in-out' }
+    );
+  };
+  control.addEventListener('pointerenter', event => {
+    if (footerHover.matches && event.pointerType !== 'touch') play();
+  });
+  control.addEventListener('click', play);
+});
+
 const winterDialog = document.querySelector('#winter-dialog');
 if (winterDialog) {
   const winterVideo = winterDialog.querySelector('video');
