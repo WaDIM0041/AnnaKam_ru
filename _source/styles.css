@@ -60,3 +60,5 @@
     inline-size: calc((100% - 28px) / 2);
   }
 }
+
+@font-face{font-family:MakannaQuicksand;src:url("/assets/Quicksand-Light.ttf") format("truetype");font-weight:300;font-display:swap}.brand-word,.makanna-wordmark{font-family:MakannaQuicksand,Arial,sans-serif;font-weight:300;text-transform:none}.makanna-wordmark{display:inline-block;color:#aeece3}

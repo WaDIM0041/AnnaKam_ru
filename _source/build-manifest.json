@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T14:25:51.709Z",
+  "generatedAt": "2026-11-18T21:15:59.304Z",
   "pages": [
     "/",
     "/catalog/",
@@ -24,9 +24,9 @@
     "/support/"
   ],
   "assets": [
-    "/assets/catalog-styles-657733dc0dff.css",
-    "/assets/catalog-app-5b1dabc08261.js",
-    "/assets/catalog-effects-6abaa0e0ae10.css"
+    "/assets/catalog-styles-3e578300f996.css",
+    "/assets/catalog-app-6d23f7a0679c.js",
+    "/assets/catalog-effects-f3308552381f.css"
   ],
   "solutions": 11,
   "releaseReady": false,

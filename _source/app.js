@@ -104,7 +104,7 @@
    const collaboration=$('[name="collaboration"]',form).selectedOptions[0].textContent;
    const standalone=data.get('solution')==='Без заказа сайта';
    const site=standalone?'Формат обращения: отдельная услуга без заказа сайта.':`Решение: ${data.get('solution')}.\nФормат сайта: ${({exclusive:'обсудить эксклюзив',custom:'индивидуальная разработка сайта',adaptation:'адаптация готового решения'})[data.get('license')]||'обсудим'}.`;
-   const text=`Здравствуйте! Хочу обсудить задачу с ANNA KAM.\n\n${site}\nМой бюджет: ${String(data.get('budget')||'').trim()||'пока не определён'}.\nБизнес: ${String(data.get('business')||'').trim()||'уточню в диалоге'}.\nЧто нужно: ${String(data.get('needs')||'').trim()||'помощь с выбором состава'}.\nФормат сотрудничества: ${collaboration}.\nИнтересующие направления: ${services.length?services.join(', '):'пока не выбраны'}.\n\nДавайте согласуем состав, сроки и стоимость работы.`;
+   const text=`Здравствуйте! Хочу обсудить задачу с makanna.\n\n${site}\nМой бюджет: ${String(data.get('budget')||'').trim()||'пока не определён'}.\nБизнес: ${String(data.get('business')||'').trim()||'уточню в диалоге'}.\nЧто нужно: ${String(data.get('needs')||'').trim()||'помощь с выбором состава'}.\nФормат сотрудничества: ${collaboration}.\nИнтересующие направления: ${services.length?services.join(', '):'пока не выбраны'}.\n\nДавайте согласуем состав, сроки и стоимость работы.`;
 
    const panel=$('[data-message-panel]'),message=$('[data-message]');panel.hidden=false;message.value=text;
    $('[data-request-status]').textContent='Сообщение подготовлено, но ещё не отправлено. Скопируйте его и отправьте в выбранный диалог.';
