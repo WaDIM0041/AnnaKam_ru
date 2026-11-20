@@ -1,5 +1,5 @@
 const telegram = 'https://t.me/Wadim_8884';
-const specialist = 'https://wadim0041.github.io/specialist-na-chas/';
+const specialist = 'https://spec.annakam.ru/';
 const music = 'https://wadim0041.github.io/annakam-music-site/';
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 const link = (label, href, secondary = false) => `<a class="button${secondary ? ' button-secondary' : ''}" href="${escape(href)}">${label}<span aria-hidden="true">↗</span></a>`;

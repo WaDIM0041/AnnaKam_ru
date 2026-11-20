@@ -9,7 +9,7 @@ const specialist={
   slug:'specialist-na-chas',recordId:'personal-specialist-na-chas',recordType:'personal',personal:true,
   name:'Специалист на час',category:'personal',categoryLabel:'Авторский проект',kind:'Портфолио услуг',
   description:'Сайты, чат-боты и контент для бизнеса. На сайте — услуги, примеры работ и способ обсудить задачу.',
-  image:'/portfolio/specialist-na-chas.webp',demo:'https://wadim0041.github.io/specialist-na-chas/',
+  image:'/portfolio/specialist-na-chas.webp',demo:'https://spec.annakam.ru/',
   alt:'Первый экран сайта «Специалист на час»',caption:'Портфолио специалиста'
 };
 
