@@ -103,7 +103,7 @@
   function toBottom(){scroll.scrollTop=scroll.scrollHeight;}
   function message(role,text,sources=[]){
     const block=document.createElement('div');block.className='message '+role;
-    const label=document.createElement('span');label.className='who';label.textContent=role==='user'?'Вы':'ANNA KAM';
+    const label=document.createElement('span');label.className='who';label.textContent=role==='user'?'Вы':'Анна';
     const paragraph=document.createElement('p');paragraph.textContent=text;block.append(label,paragraph);
     if(sources.length){const links=document.createElement('div');links.className='sources';for(const source of sources){if(!/^\/(?:support|how-to-buy|licenses|sites\/[-a-z0-9]+)\/$/.test(source.url))continue;const a=document.createElement('a');a.href=source.url;a.textContent=source.title;a.target='_blank';a.rel='noopener';links.append(a);}block.append(links);}
     $('.messages').append(block);toBottom();
