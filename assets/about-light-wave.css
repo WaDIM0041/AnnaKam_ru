@@ -1,0 +1,77 @@
+#about .studio-about {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #061015;
+}
+
+#about .studio-about > :not(.about-light-wave) {
+  position: relative;
+  z-index: 1;
+}
+
+.about-light-wave {
+  position: absolute;
+  inset: 0 0 0 32%;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 52%);
+}
+
+.about-light-wave::before,
+.about-light-wave::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.about-light-wave::before {
+  background: url("about-light-wave.jpg") center 51% / cover no-repeat;
+  opacity: .74;
+  transform: scale(1.13);
+  animation: about-wave-drift 20s ease-in-out infinite alternate;
+}
+
+.about-light-wave::after {
+  background: linear-gradient(90deg, #061015 4%, #06101580 64%, transparent);
+}
+
+.about-light-wave i {
+  position: absolute;
+  z-index: 1;
+  top: var(--y);
+  left: var(--x);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  color: #6bdeff;
+  background: currentColor;
+  box-shadow: 0 0 9px 2px currentColor;
+  animation: about-light-drift 7s var(--delay) ease-in-out infinite;
+  opacity: .35;
+}
+
+.about-light-wave i:nth-child(even) { color: #ffd279; }
+
+@keyframes about-wave-drift {
+  from { transform: translate(-2%, -3%) scale(1.13); }
+  to { transform: translate(2%, 3%) scale(1.23); }
+}
+
+@keyframes about-light-drift {
+  0%, 100% { opacity: .12; transform: translate(0, 0); }
+  50% { opacity: .75; transform: translate(26px, 21px); }
+}
+
+@media (max-width: 700px) {
+  .about-light-wave { inset: 0 0 0 8%; }
+  .about-light-wave::before { opacity: .32; }
+  .about-light-wave::after {
+    background: linear-gradient(90deg, #061015 2%, #06101599 68%, #06101555);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-light-wave::before,
+  .about-light-wave i { animation: none; }
+}
