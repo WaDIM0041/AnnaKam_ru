@@ -1,0 +1,36 @@
+.studio-house-story {
+  display: grid;
+  grid-column: 1 / -1;
+  scroll-margin-top: 110px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 2vw, 22px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.studio-house-story li {
+  overflow: hidden;
+  border: 1px solid #8af3df2c;
+  border-radius: 12px;
+  background: #0b1820;
+}
+
+.studio-house-story img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.studio-house-story span {
+  display: block;
+  padding: 12px 14px;
+  font-size: .875rem;
+  font-weight: 650;
+}
+
+@media (max-width: 510px) {
+  .studio-house-story { grid-template-columns: minmax(0, 1fr); }
+}
