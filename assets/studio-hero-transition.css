@@ -1,0 +1,54 @@
+.studio-home .studio-hero {
+  position: relative;
+  isolation: isolate;
+  background: #031012;
+}
+
+.studio-hero-backdrop,
+.studio-hero-photo,
+.studio-hero-afterglow {
+  position: absolute;
+  inset: 0;
+}
+
+.studio-hero-backdrop {
+  z-index: -1;
+  overflow: hidden;
+  clip-path: inset(0);
+  pointer-events: none;
+}
+
+.studio-hero-photo {
+  background:
+    linear-gradient(90deg, #020c0de0, #020c0d7a),
+    url("studio-workspace-hero.webp") center top / 100% auto no-repeat;
+  mask-image: linear-gradient(#000 66%, transparent);
+  opacity: var(--hero-photo-opacity, 1);
+  transform-origin: center top;
+}
+
+.studio-hero.is-photo-pinned .studio-hero-photo {
+  position: fixed;
+  inset: var(--hero-photo-top) 0 auto;
+  height: var(--hero-photo-height);
+  transform: scale(var(--hero-photo-scale, 1));
+  will-change: transform, opacity;
+}
+
+.studio-hero-afterglow {
+  background:
+    linear-gradient(180deg, transparent 60%, #031012),
+    repeating-linear-gradient(90deg, #58f0cd13 0 1px, transparent 1px 68px),
+    repeating-linear-gradient(0deg, #58f0cd13 0 1px, transparent 1px 68px),
+    radial-gradient(ellipse at 74% 30%, #13534b 0%, #0a2529 30%, transparent 67%),
+    radial-gradient(ellipse at 22% 5%, #10213c, transparent 54%),
+    #031012;
+  opacity: var(--hero-glow-opacity, 0);
+}
+
+@media (max-width: 700px) {
+  .studio-hero-photo {
+    background-position: center, 62% top;
+    background-size: auto, auto 420px;
+  }
+}
