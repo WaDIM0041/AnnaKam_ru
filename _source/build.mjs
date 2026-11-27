@@ -1,3 +1,4 @@
+import {applyServiceSeo} from './service-seo.mjs';
 import {studioHome} from './studio-home.mjs';
 import {servicesSection,updateContact} from './services.mjs';
 import {botHead} from './bot-integration.mjs';
@@ -54,7 +55,7 @@ function layout({title,description,url,body,active='',noindex=false,extraSchema=
    const musicSchema = {'@context':'https://schema.org','@type':'Organization',name:'Anna Кам Studio Music',alternateName:aliases,url:'https://wadim0041.github.io/annakam-music-site/'};
    brandedHtml = brandedHtml.replace('</head>',`<meta name="keywords" content="${e(['makanna',...aliases,'музыка','сайты','инженерия'].join(', '))}"><script type="application/ld+json">${JSON.stringify(musicSchema).replaceAll('<','\\u003c')}</script></head>`);
  }
- write(file,brandedHtml);if(!noindex)pages.push({url,title});return brandedHtml;
+ const serviceHtml=applyServiceSeo(url,brandedHtml);write(file,serviceHtml);if(!noindex)pages.push({url,title});return serviceHtml;
 }
 const categoryNav=(current='')=>`<nav class="category-links static-categories" aria-label="Категории готовых сайтов"><a href="/catalog/"${!current?' aria-current="page"':''}>Все решения</a>${categories.map(c=>`<a href="/catalog/${c.slug}/"${current===c.id?' aria-current="page"':''}>${e(c.label)}</a>`).join('')}</nav>`;
 function card(p){if(p.personal)return personalCard(p);return `<article class="product-card" data-product-card data-category="${p.category}" data-record-id="${p.recordId}" data-record-type="${p.recordType}"><a class="product-preview" href="/sites/${p.slug}/" aria-label="${e(p.name)} — посмотреть решение"><span class="product-preview-image"><img src="${e(p.image)}" width="800" height="500" loading="lazy" decoding="async" alt="${e(p.name)} — ${e(p.kind.toLowerCase())}"><span class="preview-label">Работающая демонстрация</span></span><h3 class="preview-site-name product-preview-caption">${e(p.name)}</h3></a><div class="product-meta"><span>${e(p.categoryLabel)}</span><span>${e(p.kind)}</span></div><p class="product-description">${e(p.description)}</p><div class="product-bottom"><p class="price-note"><a href="/?solution=${encodeURIComponent(p.name)}#contact">Предложите цену ↗</a><span>Состав и условия согласуем до начала</span></p><div class="product-actions"><a href="/sites/${p.slug}/">Подробнее <span aria-hidden="true">↗</span></a><a href="${e(p.demo)}" target="_blank" rel="noopener noreferrer" aria-label="${e(p.name)} — открыть демо в новой вкладке">Демо <span aria-hidden="true">↗</span></a></div></div></article>`;}
@@ -94,7 +95,7 @@ layout({title:'Условия использования — проект | maka
 layout({title:'Страница не найдена — makanna',description:'Вернитесь в каталог готовых сайтов makanna.',url:'/404.html',noindex:true,body:`<section class="not-found"><p class="eyebrow">404</p><h1>Страница не найдена</h1><p>Возможно, адрес изменился. В каталоге можно выбрать готовое решение или начать с главной.</p><div class="hero-actions">${button('Открыть каталог','/catalog/')}${button('На главную','/',true)}</div></section>`});
 // Route aliases remain recoverable; no generated file or prior export is deleted.
 const notFound=fs.readFileSync(path.join(root,'404.html'),'utf8');write('404/index.html',notFound);write('_not-found/index.html',notFound);
-write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+pages.map(p=>`  <url><loc>${e(origin+p.url)}</loc><lastmod>2026-10-21</lastmod></url>`).join('\n')+'\n</urlset>\n');
+write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+pages.map(p=>`  <url><loc>${e(origin+p.url)}</loc></url>`).join('\n')+'\n</urlset>\n');
 write('manifest.json',JSON.stringify({name:'makanna — готовые сайты для бизнеса',short_name:'makanna',icons:[{src:'/favicon.svg',sizes:'any',type:'image/svg+xml'}],start_url:'/',display:'standalone',background_color:'#050707',theme_color:'#00ed9d'},null,2));
 write('robots.txt','User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /data/\nDisallow: /_source/\nDisallow: /INSTALL/\nDisallow: /api/\n\nSitemap: https://annakam.ru/sitemap.xml\n');
 write('catalog-data.json',JSON.stringify({version:1,solutions:products.map(({slug,name,category,description,image,demo})=>({slug,name,category,description,image,demo}))},null,2));
