@@ -1,6 +1,6 @@
 const telegram = 'https://t.me/Wadim_8884';
 const specialist = 'https://spec.annakam.ru/';
-const music = 'https://wadim0041.github.io/annakam-music-site/';
+const music = 'https://music.annakam.ru/';
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 const link = (label, href, secondary = false) => `<a class="button${secondary ? ' button-secondary' : ''}" href="${escape(href)}">${label}<span aria-hidden="true">↗</span></a>`;
 const heroLine = (text, line) => `<span class="studio-title-line studio-title-line-${line}" aria-hidden="true">${Array.from(text, (letter, index) => `<span class="studio-title-letter" style="--letter-delay:${index * 0.1}s">${letter === ' ' ? '&nbsp;' : escape(letter)}</span>`).join('')}</span>`;
