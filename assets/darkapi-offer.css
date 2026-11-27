@@ -1,0 +1,119 @@
+.darkapi-offer {
+  box-sizing: border-box;
+  width: min(1120px, calc(100% - 2rem));
+  margin: clamp(2.5rem, 6vw, 5rem) auto;
+  color: #f3f7f9;
+  font: inherit;
+  scroll-margin-top: 6rem;
+}
+
+.darkapi-card {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid #345459;
+  border-radius: 1.125rem;
+  background: #111f24;
+}
+
+.darkapi-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  object-fit: cover;
+}
+
+.darkapi-content {
+  min-width: 0;
+  padding: clamp(1.25rem, 4vw, 2.75rem);
+}
+
+.darkapi-content p {
+  margin: 0 0 .65rem;
+  max-width: 58ch;
+  color: #c6d8dc;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.darkapi-content .darkapi-provider {
+  color: #a0e7db;
+  font-size: .875rem;
+  font-weight: 650;
+}
+
+.darkapi-content h2 {
+  margin: 0 0 .75rem;
+  color: #f3f7f9;
+  font-size: clamp(1.625rem, 3vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+}
+
+.darkapi-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem 1rem;
+  margin: 1.125rem 0 0;
+}
+
+.darkapi-offer a {
+  font-weight: 650;
+  text-underline-offset: .2em;
+}
+
+.darkapi-offer .darkapi-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: .55rem .9rem;
+  border-radius: .5rem;
+  background: #a0e7db;
+  color: #0e2629;
+  text-decoration: none;
+}
+
+.darkapi-offer .darkapi-order:hover {
+  background: #c8fff4;
+}
+
+.darkapi-offer .darkapi-link {
+  color: #b4f0e5;
+  text-decoration: underline;
+}
+
+.darkapi-details {
+  margin-top: .875rem;
+  color: #c6d8dc;
+  font-size: .9375rem;
+  line-height: 1.5;
+}
+
+.darkapi-details summary {
+  display: list-item;
+  width: fit-content;
+  padding: .35rem 0;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.darkapi-details ol {
+  margin: .45rem 0;
+  padding-inline-start: 1.4rem;
+  list-style: decimal;
+}
+
+.darkapi-offer :is(a, summary):focus-visible {
+  outline: 2px solid #f8dd94;
+  outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .darkapi-card { grid-template-columns: minmax(0, 1fr); }
+  .darkapi-image { height: auto; min-height: 0; aspect-ratio: 16 / 8; }
+}
