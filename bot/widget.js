@@ -194,6 +194,7 @@
     host.id = "annakam-bot";
     if (location.hash === "#annakam-bot") host.scrollIntoView();
     const characterUrl = new URL("./character.js", document.currentScript.src);
+    characterUrl.searchParams.set("v", assetVersion);
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       observer.disconnect();
