@@ -190,5 +190,18 @@
     host.dataset.layout='catalog';
     shadow.querySelector('.holo-description').innerHTML='<p class="business-kicker">Помощник для вашего бизнеса</p><h2 class="business-title">Не упускайте клиента,<br>когда команда занята.</h2><p>Такой помощник может встретить посетителя вечером, в выходной или когда команда занята. Состав базы знаний и допустимые ответы согласуем с вами, проверим на примерах и будем обновлять при изменениях в бизнесе.</p><div class="business-steps"><span>01 · Изучим ваш бизнес</span><span>02 · Настроим сценарии и материалы</span><span>03 · Проверим и подключим</span></div><p class="business-note">Настроим помощника конкретно под ваш бизнес и ваши нужды. Обучим его работе с вашими материалами: услугами, товарами, частыми вопросами и правилами компании. Сценарии общения и ответы подготовим под ваши задачи — от знакомства с предложением до подготовки обращения менеджеру. Состав функций и подключения согласуем под вашу задачу. Сложные вопросы, стоимость и окончательные условия сделки подтверждает человек. Нажмите на шар, чтобы попробовать демонстрацию.</p>';
   }
+  if (host.dataset.layout === "home") {
+    host.id = "annakam-bot";
+    if (location.hash === "#annakam-bot") host.scrollIntoView();
+    const characterUrl = new URL("./character.js", document.currentScript.src);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      import(characterUrl.href)
+        .then(({ mountCharacter }) => mountCharacter(host))
+        .catch(error => console.warn("Не удалось отобразить фигурку Анакам", error));
+    }, { rootMargin: "320px" });
+    observer.observe(host);
+  }
   greeting();
 })();
