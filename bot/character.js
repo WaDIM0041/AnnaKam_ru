@@ -34,6 +34,16 @@ export function mountCharacter(host) {
       :host([data-character-preview]) .holo-stage {grid-template-columns:minmax(0,1fr)}
       .anna-pair {max-width:540px}
     }
+    @container (max-width: 260px) {
+      .anna-pair .launcher .holo-kicker,
+      .anna-pair .launcher small {display:none}
+      .anna-pair .launcher strong {font-size:clamp(14px, 7cqw, 18px)!important}
+      .anna-pair .launcher-cta {
+        font-size:clamp(12px, 5.5cqw, 14px)!important;
+        letter-spacing:0;
+        margin-top:.45em!important;
+      }
+    }
     .anna-pair .launcher {transition: box-shadow .22s, border-color .22s}
     .anna-pair .launcher[data-inviting] {border-color:#a5ffef; box-shadow:inset 0 0 32px #69ffe940, 0 0 30px #46f3e86a}
     .anna-pair .launcher[data-inviting]::after {inset:3%; background:radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), #8cfff860, transparent 48%)}
