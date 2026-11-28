@@ -4,6 +4,8 @@ export function mountCharacter(host) {
   const shadow = host.shadowRoot;
   const stage = shadow.querySelector('.holo-stage');
   const orb = stage.querySelector('.launcher-glow');
+  const launcher = orb.querySelector('.launcher');
+  const dialog = shadow.querySelector('dialog');
   const sceneBox = document.createElement('div');
   sceneBox.className = 'anna-character';
   sceneBox.setAttribute('role', 'img');
@@ -32,6 +34,11 @@ export function mountCharacter(host) {
       :host([data-character-preview]) .holo-stage {grid-template-columns:minmax(0,1fr)}
       .anna-pair {max-width:540px}
     }
+    .anna-pair .launcher {transition: box-shadow .22s, border-color .22s}
+    .anna-pair .launcher[data-inviting] {border-color:#a5ffef; box-shadow:inset 0 0 32px #69ffe940, 0 0 30px #46f3e86a}
+    .anna-pair .launcher[data-inviting]::after {inset:3%; background:radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), #8cfff860, transparent 48%)}
+    .anna-pair .launcher[data-inviting] .launcher-cta {color:#e1fff8; text-shadow:0 0 10px #66ffce}
+    @media(prefers-reduced-motion: reduce) {.anna-pair .launcher {transition:none}}
     :host([data-character-preview]) .launcher:focus-visible {
       outline-offset:-5px;
     }
@@ -44,8 +51,8 @@ export function mountCharacter(host) {
   host.dataset.characterPreview = '';
   const scene = new T.Scene();
   const camera = new T.PerspectiveCamera(31, 1, .1, 30);
-  camera.position.set(0, 1.82, 7.65);
-  camera.lookAt(0, 1.62, 0);
+  camera.position.set(.12, 1.82, 7.65);
+  camera.lookAt(.12, 1.62, 0);
   scene.add(new T.HemisphereLight(0xd5f4ff, 0x5b3a63, 2.15));
   for (const [color, intensity, position] of [
     [0xffe7d3, 3.2, [3, 5, 5]],
@@ -56,7 +63,7 @@ export function mountCharacter(host) {
     light.position.set(...position);
     scene.add(light);
   }
-  const { figure, head } = makeFigure();
+  const { figure, head, shoulder, elbow, finger } = makeFigure();
   scene.add(figure);
 
   const platform = new T.Mesh(new T.CylinderGeometry(.76, .8, .05, 64), material(0x133141, .55));
@@ -74,6 +81,8 @@ export function mountCharacter(host) {
   let pitch = 0;
   let nod = -Infinity;
   let previous = 0;
+  let hovering = launcher.matches(':hover') && matchMedia('(any-hover: hover)').matches;
+  let pointing = 0;
   const render = (time) => {
     frame = 0;
     if (!visible) return;
@@ -81,13 +90,22 @@ export function mountCharacter(host) {
     previous = time;
     const sinceNod = (time - nod) / 650;
     const greeting = sinceNod < 1 ? Math.sin(sinceNod * Math.PI) * .25 : 0;
-    const targetYaw = motion.matches ? 0 : yaw;
-    const targetPitch = motion.matches ? 0 : pitch + greeting;
+    const inviting = !dialog.open && (hovering || launcher.matches(':focus-visible'));
+    launcher.toggleAttribute('data-inviting', inviting);
+    const targetPointing = inviting ? 1 : 0;
+    pointing = T.MathUtils.lerp(pointing, targetPointing, motion.matches ? 1 : step);
+    shoulder.rotation.z = .16 + pointing * 1.26;
+    elbow.rotation.z = .33 * pointing;
+    finger.scale.y = .025 + pointing * .056;
+    finger.position.y = -.35 - pointing * .039;
+    const targetYaw = motion.matches ? 0 : inviting ? .4 : yaw;
+    const targetPitch = motion.matches ? 0 : (inviting ? .10 : pitch) + greeting;
     head.rotation.y = T.MathUtils.lerp(head.rotation.y, targetYaw, step);
     head.rotation.x = T.MathUtils.lerp(head.rotation.x, targetPitch, step);
     figure.rotation.y = .09 + head.rotation.y * .19;
     renderer.render(scene, camera);
-    if (greeting > 0 || Math.abs(head.rotation.y - targetYaw) + Math.abs(head.rotation.x - targetPitch) > .001) wake();
+    if ((!motion.matches && greeting > 0) || Math.abs(pointing - targetPointing) > .001 ||
+        Math.abs(head.rotation.y - targetYaw) + Math.abs(head.rotation.x - targetPitch) > .001) wake();
   };
   function wake() {
     if (!frame && visible) {
@@ -119,7 +137,25 @@ export function mountCharacter(host) {
     yaw = pitch = 0;
     wake();
   });
-  orb.querySelector('button').addEventListener('click', () => {
+  launcher.addEventListener('pointerenter', event => {
+    if (event.pointerType === 'touch') return;
+    hovering = true;
+    wake();
+  });
+  launcher.addEventListener('pointermove', event => {
+    if (!hovering || motion.matches) return;
+    const bounds = launcher.getBoundingClientRect();
+    launcher.style.setProperty('--shine-x', ((event.clientX - bounds.left) / bounds.width * 100) + '%');
+    launcher.style.setProperty('--shine-y', ((event.clientY - bounds.top) / bounds.height * 100) + '%');
+  });
+  launcher.addEventListener('pointerleave', () => {
+    hovering = false;
+    wake();
+  });
+  launcher.addEventListener('focus', wake);
+  launcher.addEventListener('blur', wake);
+  dialog.addEventListener('close', wake);
+  launcher.addEventListener('click', () => {
     nod = performance.now();
     wake();
   });
@@ -171,12 +207,23 @@ function makeFigure() {
   oval(figure, jacket, [0, 1.62, 0], [.405, .51, .235]);
   oval(figure, dark, [0, 1.85, .18], [.14, .19, .075]);
   line(figure, teal, [[-.09,1.93,.222], [0,1.82,.253], [.015,1.26,.18]], .012);
-  for (const sign of [-1, 1]) {
-    oval(figure, jacket, [sign * .385, 1.62, -.005], [.131,.35,.138], sign * .22);
-    oval(figure, jacket, [sign * .46, 1.28,.021], [.109,.255,.11], sign * .17);
-    oval(figure, skin, [sign * .493, 1.08,.036], [.075,.108,.075], sign * .13);
-    oval(figure, teal, [sign * .47, 1.16,.033], [.102,.025,.111]);
-  }
+  oval(figure, jacket, [-.385, 1.62, -.005], [.131, .35, .138], -.22);
+  oval(figure, jacket, [-.46, 1.28, .021], [.109, .255, .11], -.17);
+  oval(figure, skin, [-.493, 1.08, .036], [.075, .108, .075], -.13);
+  oval(figure, teal, [-.47, 1.16, .033], [.102, .025, .111]);
+
+  // Pivot the sleeve at the shoulder and elbow so the hand follows the gesture.
+  const shoulder = new T.Group();
+  shoulder.position.set(.345, 1.92, 0);
+  figure.add(shoulder);
+  oval(shoulder, jacket, [0, -.24, 0], [.131, .36, .138]);
+  const elbow = new T.Group();
+  elbow.position.set(0, -.48, .018);
+  shoulder.add(elbow);
+  oval(elbow, jacket, [0, -.105, 0], [.109, .21, .11]);
+  oval(elbow, teal, [0, -.24, 0], [.101, .025, .111]);
+  oval(elbow, skin, [0, -.304, 0], [.073, .077, .063]);
+  const finger = oval(elbow, skin, [.032, -.35, .015], [.025, .025, .026]);
   oval(figure, skin, [0, 2.03, .025], [.146,.19,.13]);
   head.position.set(0, 2.10, 0);
   figure.add(head);
@@ -202,5 +249,5 @@ function makeFigure() {
   oval(head, hair, [.218,.751,.146], [.235,.17,.232], -.52);
   line(head, hairGlint, [[-.366,.674,.24],[-.281,.822,.35],[-.065,.929,.28],[.078,.929,.199]], .017);
   line(head, hairGlint, [[.157,.908,.20],[.337,.804,.28],[.447,.619,.137],[.443,.345,.079]], .014);
-  return { figure, head };
+  return { figure, head, shoulder, elbow, finger };
 }
